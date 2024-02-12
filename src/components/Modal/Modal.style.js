@@ -1,15 +1,23 @@
-import color from 'color';
 import StyleSheet from 'react-native-extended-stylesheet';
+
+import { opacity } from '../../theme/modules';
 
 export const style = StyleSheet.create({
   overflow: {
-    backgroundColor: () => color(StyleSheet.value('$colorContent')).alpha(0.33).string(),
+    backgroundColor: () => opacity(StyleSheet.value('$modalOverflowBackgroundColor'), 0.66),
     flex: 1,
     justifyContent: 'flex-end',
   },
 
   safeAreaView: {
     backgroundColor: '$colorBase',
+    borderColor: '$colorBorder',
+    borderTopWidth: 1,
+  },
+
+  fullscreen: {
+    borderTopWidth: 0,
+    flex: 1,
   },
 
   pressableClose: {
@@ -20,7 +28,10 @@ export const style = StyleSheet.create({
   },
 
   content: {
-    paddingHorizontal: '$spaceM',
-    paddingBottom: '$spaceM',
+    padding: '$spaceM',
+  },
+
+  contentModal: {
+    paddingTop: 0,
   },
 });

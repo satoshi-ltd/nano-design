@@ -44,8 +44,4 @@ export const style = StyleSheet.create({
   spaceBetween: {
     justifyContent: 'space-between',
   },
-
-  wide: {
-    flex: 1,
-  },
 });

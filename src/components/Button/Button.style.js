@@ -20,7 +20,7 @@ export const style = StyleSheet.create({
   },
 
   outlined: {
-    backgroundColor: '$colorBase',
+    backgroundColor: 'transparent',
     borderColor: '$colorContent',
     borderStyle: '$borderStyle',
     borderWidth: '$borderWidth',
@@ -37,11 +37,11 @@ export const style = StyleSheet.create({
   small: {
     minHeight: '$buttonSmallHeight',
     maxHeight: '$buttonSmallHeight',
-    paddingHorizontal: '$buttonSmallHeight / 2',
+    paddingHorizontal: '$buttonSmallHeight / 4',
   },
 
   text: {
     fontFamily: '$buttonFontFamily',
-    buttonFontWeight: '$buttonFontFamily',
+    fontWeight: '$buttonFontWeight',
   },
 });

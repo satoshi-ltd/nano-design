@@ -14,8 +14,8 @@ export const DefaultTheme = {
   $colorSuccess: '#ff5c5c',
 
   // -- typography -------------------------------------------------------------
-  $fontWeightDefault: 400,
-  $fontWeightBold: 700,
+  $fontWeightDefault: '400',
+  $fontWeightBold: '700',
   $fontSizeTitle: 28,
   $fontSizeSubtitle: 20,
   $fontSizeBody: 16,
@@ -35,17 +35,19 @@ export const DefaultTheme = {
   $borderColor: '$colorContent',
   $borderRadius: '$spaceS',
   $borderStyle: 'solid',
-  $borderWidth: '$spaceXXS / 2',
+  $borderWidth: '$spaceXXS',
 
   // == <primitives> ===========================================================
   // -- <Input> ----------------------------------------------------------------
   $inputBackgroundColor: '$colorBorder',
   $inputBorderColor: '$inputBackgroundColor',
+  $inputBorderRadius: '$borderRadius',
   $inputBorderStyle: '$borderStyle',
   $inputBorderWidth: '$borderWidth',
+  $inputColor: '$colorContent',
   $inputFontFamily: 'font-bold',
-  $inputFontSize: '$fontSizeBody',
   $inputFontWeight: '$fontWeightDefault',
+  $inputFontSize: '$fontSizeBody',
   $inputPaddingHorizontal: '$spaceM',
   $inputPaddingVertical: '$spaceM - $borderWidth',
   $inputPlaceholderColor: '$colorDisabled',
@@ -58,9 +60,10 @@ export const DefaultTheme = {
   // -- valid
   $inputBackgroundColorValid: '$inputBackgroundColorFocus',
   $inputBorderColorValid: '$colorAccent',
-
-  // -- <View> --------------------------------------------------------------------
+  // -- <View> -----------------------------------------------------------------
+  $viewGap: '$spaceM',
   $viewOffset: '$spaceM',
+  // -- <?> --------------------------------------------------------------------
 
   // == <components> ===========================================================
   // -- <Action> ---------------------------------------------------------------
@@ -73,7 +76,9 @@ export const DefaultTheme = {
   $buttonColorSecondary: '$colorAccent',
   $buttonHeight: '$spaceXL + $spaceL',
   $buttonSmallHeight: '$spaceXL',
-  $buttonRadius: '$borderRadius',
+  $buttonRadius: '$spaceS',
+  // -- <Modal> ----------------------------------------------------------------
+  $modalOverflowBackgroundColor: '$colorBase',
 
   // -- <Pagination> -----------------------------------------------------------
   $paginationSize: '$spaceS',

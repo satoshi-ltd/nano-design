@@ -1,5 +1,6 @@
-import color from 'color';
 import StyleSheet from 'react-native-extended-stylesheet';
+
+import { opacity } from '../../theme/modules';
 
 export const style = StyleSheet.create({
   container: {
@@ -8,7 +9,7 @@ export const style = StyleSheet.create({
   },
 
   overflow: {
-    backgroundColor: () => color(StyleSheet.value('$colorBase')).alpha(0.33).string(),
+    backgroundColor: () => opacity(StyleSheet.value('$colorBase'), 0.33),
     bottom: 0,
     left: 0,
     position: 'absolute',
