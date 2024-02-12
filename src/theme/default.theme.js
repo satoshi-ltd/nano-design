@@ -46,7 +46,7 @@ export const DefaultTheme = {
   $inputFontFamily: 'font-bold',
   $inputFontSize: '$fontSizeBody',
   $inputFontWeight: '$fontWeightDefault',
-  $inputPaddingHorizontaL: '$spaceM',
+  $inputPaddingHorizontal: '$spaceM',
   $inputPaddingVertical: '$spaceM - $borderWidth',
   $inputPlaceholderColor: '$colorDisabled',
   // -- focus
