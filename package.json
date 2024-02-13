@@ -1,8 +1,7 @@
 {
   "name": "@satoshi-ltd/nano-design",
-  "version": "0.1.10",
+  "version": "0.1.13",
   "description": "Naive design system",
-  "main": "build/commonjs/index.js",
   "module": "build/module/index.js",
   "react-native": "src/index.js",
   "source": "src/index.js",
@@ -13,7 +12,10 @@
   "scripts": {
     "start": "expo start",
     "build": "bob build",
-    "lint": "eslint --cache --fix --format codeframe --ext .jsx,.js src"
+    "prepare": "bob build",
+    "lint": "eslint --cache --fix --format codeframe --ext .jsx,.js src",
+    "publish": "npm version patch && npm publish",
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
     "expo": "^49.0.0",
@@ -39,7 +41,6 @@
     "source": "src",
     "output": "build",
     "targets": [
-      "commonjs",
       "module"
     ]
   }
