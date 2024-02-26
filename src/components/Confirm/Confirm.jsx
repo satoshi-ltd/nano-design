@@ -27,7 +27,7 @@ const Confirm = ({
         {caption && <Text>{caption}</Text>}
       </View>
       {children}
-      <View flex gap row style={style.buttons}>
+      <View gap row style={style.buttons}>
         {onCancel && (
           <Button flex outlined onPress={onCancel}>
             {cancel}
