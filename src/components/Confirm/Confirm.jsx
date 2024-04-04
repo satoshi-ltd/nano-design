@@ -18,7 +18,7 @@ const Confirm = ({
 }) => (
   <Modal onClose={onCancel}>
     <View gap {...others}>
-      <View>
+      <View gap>
         {title && (
           <Text bold subtitle>
             {title}
