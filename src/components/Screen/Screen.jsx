@@ -6,7 +6,7 @@ import { KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
 import { style } from './Screen.style';
 import { ScrollView, View } from '../../primitives';
 
-const Screen = ({ refreshScroll = true, ...others }) => {
+const Screen = ({ disableScroll = false, refreshScroll = true, ...others }) => {
   const scrollview = useRef(null);
 
   useFocusEffect(
@@ -20,9 +20,13 @@ const Screen = ({ refreshScroll = true, ...others }) => {
   return (
     <SafeAreaView style={style.safeAreaView}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'position' : 'height'} style={style.scrollView}>
-        <ScrollView ref={scrollview} style={style.scrollView}>
+        {!disableScroll ? (
+          <ScrollView ref={scrollview} style={style.scrollView}>
+            <View {...others} />
+          </ScrollView>
+        ) : (
           <View {...others} />
-        </ScrollView>
+        )}
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -32,6 +36,7 @@ Screen.displayName = 'Screen';
 
 Screen.propTypes = {
   children: PropTypes.node,
+  disableScroll: PropTypes.bool,
   refreshScroll: PropTypes.bool,
 };
 
