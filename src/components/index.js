@@ -6,3 +6,4 @@ export * from './Heading';
 export * from './Modal';
 export * from './Pagination';
 export * from './Screen';
+export * from './SectionList';
