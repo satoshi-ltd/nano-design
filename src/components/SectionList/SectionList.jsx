@@ -2,27 +2,34 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { SectionList as BaseSectionList } from 'react-native';
 
-const SectionList = ({ data, keyExtractor, onEndReached, refreshing, renderItem, renderSectionHeader, style }) => (
+const SectionList = ({
+  dataSource,
+  initialItemsToRender = 16,
+  keyExtractor,
+  refreshing,
+  renderItem,
+  renderSectionHeader,
+  onEndReached,
+  ...others
+}) => (
   <BaseSectionList
-    initialNumToRender={20}
-    keyExtractor={keyExtractor}
+    {...others}
+    {...{ keyExtractor, refreshing, renderItem, renderSectionHeader }}
+    initialNumToRender={initialItemsToRender}
+    sections={dataSource}
     onEndReached={onEndReached}
-    refreshing={refreshing}
-    renderItem={renderItem}
-    renderSectionHeader={renderSectionHeader}
-    sections={data}
-    style={style}
+    style={others.style}
   />
 );
 
 SectionList.propTypes = {
-  data: PropTypes.array,
+  dataSource: PropTypes.array,
+  initialItemsToRender: PropTypes.func,
   keyExtractor: PropTypes.func,
-  onEndReached: PropTypes.func,
   refreshing: PropTypes.bool,
   renderItem: PropTypes.func,
   renderSectionHeader: PropTypes.func,
-  style: PropTypes.any,
+  onEndReached: PropTypes.func,
 };
 
 export { SectionList };
