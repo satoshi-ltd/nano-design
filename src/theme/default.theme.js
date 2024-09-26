@@ -15,6 +15,7 @@ export const DefaultTheme = {
 
   // -- typography -------------------------------------------------------------
   $fontWeightDefault: '400',
+  $fontWeightMedium: '600',
   $fontWeightBold: '700',
   $fontSizeTitle: 28,
   $fontSizeSubtitle: 20,

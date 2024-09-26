@@ -12,6 +12,7 @@ const Text = ({
   children,
   color = 'content',
   ellipsizeMode,
+  medium,
   // -- size
   title,
   subtitle,
@@ -28,7 +29,7 @@ const Text = ({
       style.text,
       getColor(color),
       getFontSize({ title, subtitle, caption, tiny }),
-      bold && style.bold,
+      bold ? style.bold : medium ? style.medium : undefined,
       align && style[align],
       others.style,
     ]}
@@ -45,6 +46,7 @@ Text.propTypes = {
   children: PropTypes.any,
   color: PropTypes.string,
   ellipsizeMode: PropTypes.bool,
+  medium: PropTypes.bool,
   // -- size
   title: PropTypes.bool,
   subtitle: PropTypes.bool,

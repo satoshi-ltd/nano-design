@@ -11,6 +11,11 @@ export const style = StyleSheet.create({
     fontWeight: '$fontWeightBold',
   },
 
+  medium: {
+    fontFamily: 'font-medium',
+    fontWeight: '$fontWeightMedium',
+  },
+
   // align
   left: {
     alignSelf: 'flex-start',
