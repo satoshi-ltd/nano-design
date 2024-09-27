@@ -12,7 +12,7 @@ const Text = ({
   children,
   color = 'content',
   ellipsizeMode,
-  medium,
+  secondary = false,
   // -- size
   title,
   subtitle,
@@ -26,10 +26,10 @@ const Text = ({
     numberOfLines={ellipsizeMode ? 1 : undefined}
     selectable={false}
     style={[
-      style.text,
+      !secondary ? style.text : style.textSecondary,
       getColor(color),
       getFontSize({ title, subtitle, caption, tiny }),
-      bold ? style.bold : medium ? style.medium : undefined,
+      bold ? (!secondary ? style.bold : style.boldSecondary) : undefined,
       align && style[align],
       others.style,
     ]}
@@ -46,7 +46,7 @@ Text.propTypes = {
   children: PropTypes.any,
   color: PropTypes.string,
   ellipsizeMode: PropTypes.bool,
-  medium: PropTypes.bool,
+  secondary: PropTypes.bool,
   // -- size
   title: PropTypes.bool,
   subtitle: PropTypes.bool,

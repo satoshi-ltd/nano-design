@@ -6,14 +6,19 @@ export const style = StyleSheet.create({
     fontWeight: '$fontWeightDefault',
   },
 
+  textSecondary: {
+    fontFamily: 'font-default-secondary',
+    fontWeight: '$fontWeightDefaultSecondary',
+  },
+
   bold: {
     fontFamily: 'font-bold',
     fontWeight: '$fontWeightBold',
   },
 
-  medium: {
-    fontFamily: 'font-medium',
-    fontWeight: '$fontWeightMedium',
+  boldSecondary: {
+    fontFamily: 'font-bold-secondary',
+    fontWeight: '$fontWeightBoldSecondary',
   },
 
   // align

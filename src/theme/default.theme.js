@@ -15,13 +15,14 @@ export const DefaultTheme = {
 
   // -- typography -------------------------------------------------------------
   $fontWeightDefault: '400',
-  $fontWeightMedium: '600',
   $fontWeightBold: '700',
-  $fontSizeTitle: 28,
+  $fontWeightDefaultSecondary: '400',
+  $fontWeightBoldSecondary: '700',
+  $fontSizeTitle: 24,
   $fontSizeSubtitle: 20,
-  $fontSizeBody: 16,
-  $fontSizeCaption: 13,
-  $fontSizeTiny: 10,
+  $fontSizeBody: 17,
+  $fontSizeCaption: 14,
+  $fontSizeTiny: 11,
 
   // -- spacing ----------------------------------------------------------------
   $spaceXXS: 2,
