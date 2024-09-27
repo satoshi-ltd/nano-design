@@ -2,6 +2,7 @@ import StyleSheet from 'react-native-extended-stylesheet';
 
 export const style = StyleSheet.create({
   button: {
+    alignContent: 'center',
     alignItems: 'center',
     borderRadius: '$buttonRadius',
     justifyContent: 'center',
@@ -17,6 +18,12 @@ export const style = StyleSheet.create({
 
   flex: {
     flex: 1,
+  },
+
+  large: {
+    minHeight: '$buttonLargeHeight',
+    maxHeight: '$buttonLargeHeight',
+    paddingHorizontal: '$buttonLargeHeight / 4',
   },
 
   outlined: {

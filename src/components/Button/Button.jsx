@@ -11,6 +11,7 @@ const Button = ({
   children,
   disabled,
   flex = false,
+  large = false,
   outlined = false,
   secondary = false,
   small = false,
@@ -25,7 +26,7 @@ const Button = ({
       style.button,
       disabled ? style.disabled : secondary ? style.secondary : outlined ? style.outlined : style.primary,
       flex && style.flex,
-      small && style.small,
+      large ? style.large : small ? style.small : undefined,
       others.style,
     ]}
   >
@@ -54,6 +55,7 @@ Button.propTypes = {
   children: PropTypes.node,
   disabled: PropTypes.bool,
   flex: PropTypes.bool,
+  large: PropTypes.bool,
   outlined: PropTypes.bool,
   secondary: PropTypes.bool,
   small: PropTypes.bool,
