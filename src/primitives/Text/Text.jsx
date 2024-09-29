@@ -23,7 +23,7 @@ const Text = ({
   <BaseText
     {...others}
     allowFontScaling={false}
-    numberOfLines={ellipsizeMode ? 1 : undefined}
+    numberOfLines={ellipsizeMode ? 1 : others.numberOfLines}
     selectable={false}
     style={[
       !secondary ? style.text : style.textSecondary,
