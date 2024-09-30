@@ -78,7 +78,7 @@ export const DefaultTheme = {
   $buttonColorSecondary: '$colorAccent',
   $buttonHeight: '$spaceXXL + $spaceS',
   $buttonSmallHeight: '$spaceXL - $spaceXS',
-  $buttonLargeHeight: '$spaceXXL - $spaceL',
+  $buttonLargeHeight: '$spaceXXL + $spaceM',
   $buttonRadius: '$spaceS',
   // -- <Modal> ----------------------------------------------------------------
   $modalOverflowBackgroundColor: '$colorBase',

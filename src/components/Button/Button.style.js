@@ -18,12 +18,7 @@ export const style = StyleSheet.create({
 
   flex: {
     flex: 1,
-  },
-
-  large: {
-    minHeight: '$buttonLargeHeight',
-    maxHeight: '$buttonLargeHeight',
-    paddingHorizontal: '$buttonLargeHeight / 4',
+    opacity: 0.1,
   },
 
   outlined: {
@@ -41,14 +36,20 @@ export const style = StyleSheet.create({
     backgroundColor: '$buttonColorSecondary',
   },
 
-  small: {
-    minHeight: '$buttonSmallHeight',
-    maxHeight: '$buttonSmallHeight',
-    paddingHorizontal: '$buttonSmallHeight / 4',
-  },
-
   text: {
     fontFamily: '$buttonFontFamily',
     fontWeight: '$buttonFontWeight',
+  },
+
+  small: {
+    minHeight: '$buttonSmallHeight',
+    maxHeight: '$buttonSmallHeight',
+    paddingHorizontal: '$buttonSmallHeight / 2',
+  },
+
+  large: {
+    minHeight: '$buttonLargeHeight',
+    maxHeight: '$buttonLargeHeight',
+    paddingHorizontal: '$buttonLargeHeight / 2',
   },
 });
