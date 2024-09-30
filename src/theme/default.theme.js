@@ -10,8 +10,8 @@ export const DefaultTheme = {
 
   // States
   $colorError: '#ff5c5c',
-  $colorWarning: '#ff5c5c',
-  $colorSuccess: '#ff5c5c',
+  $colorWarning: '#ffcc00',
+  $colorSuccess: '#28a745',
 
   // -- typography -------------------------------------------------------------
   $fontWeightDefault: '400',
