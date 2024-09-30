@@ -6,6 +6,8 @@ export const style = StyleSheet.create({
     alignItems: 'center',
     borderRadius: '$buttonRadius',
     justifyContent: 'center',
+    flexDirection: 'row',
+    gap: '$spaceS',
     minHeight: '$buttonHeight',
     maxHeight: '$buttonHeight',
     overflow: 'hidden',
@@ -41,6 +43,7 @@ export const style = StyleSheet.create({
   },
 
   small: {
+    gap: '$spaceXS',
     minHeight: '$buttonSmallHeight',
     maxHeight: '$buttonSmallHeight',
     paddingHorizontal: '$buttonSmallHeight / 2',
