@@ -39,6 +39,8 @@ export const style = StyleSheet.create({
     color: '$colorError',
   },
 
+  valid: {},
+
   focus: {
     backgroundColor: '$inputBackgroundColorFocus',
     borderColor: '$inputBorderColorFocus',
