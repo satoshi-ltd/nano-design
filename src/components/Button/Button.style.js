@@ -18,7 +18,6 @@ export const style = StyleSheet.create({
 
   flex: {
     flex: 1,
-    opacity: 0.1,
   },
 
   outlined: {
