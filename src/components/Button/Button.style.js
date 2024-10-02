@@ -8,10 +8,15 @@ export const style = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     gap: '$spaceS',
-    minHeight: '$buttonHeight',
     maxHeight: '$buttonHeight',
+    minHeight: '$buttonHeight',
+    minWidth: '$buttonHeight',
     overflow: 'hidden',
-    paddingHorizontal: '$buttonHeight / 2',
+    paddingHorizontal: '$buttonHeight / 3',
+  },
+
+  buttonIcon: {
+    paddingHorizontal: 0,
   },
 
   disabled: {
@@ -44,14 +49,16 @@ export const style = StyleSheet.create({
 
   small: {
     gap: '$spaceXS',
-    minHeight: '$buttonSmallHeight',
     maxHeight: '$buttonSmallHeight',
-    paddingHorizontal: '$buttonSmallHeight / 2',
+    minHeight: '$buttonSmallHeight',
+    minWidth: '$buttonSmallHeight',
+    paddingHorizontal: '$buttonSmallHeight / 3',
   },
 
   large: {
-    minHeight: '$buttonLargeHeight',
     maxHeight: '$buttonLargeHeight',
-    paddingHorizontal: '$buttonLargeHeight / 2',
+    minHeight: '$buttonLargeHeight',
+    minWidth: '$buttonLargeHeight',
+    paddingHorizontal: '$buttonLargeHeight / 3',
   },
 });

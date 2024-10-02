@@ -31,9 +31,10 @@ const Button = ({
       onPress={!disabled && !activity ? onPress : undefined}
       style={[
         style.button,
-        disabled ? style.disabled : secondary ? style.secondary : outlined ? style.outlined : style.primary,
-        flex && style.flex,
         large ? style.large : small ? style.small : undefined,
+        flex && style.flex,
+        !children ? style.buttonIcon : undefined,
+        disabled ? style.disabled : secondary ? style.secondary : outlined ? style.outlined : style.primary,
         others.style,
       ]}
     >
