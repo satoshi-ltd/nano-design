@@ -6,7 +6,20 @@ import StyleSheet from 'react-native-extended-stylesheet';
 import { style } from './Input.style';
 
 const Input = React.forwardRef(
-  ({ align, error = false, keyboard = 'text', placeholder, valid = false, value = '', onChange, ...others }, ref) => {
+  (
+    {
+      align,
+      disabled = false,
+      error = false,
+      keyboard = 'text',
+      placeholder,
+      valid = false,
+      value = '',
+      onChange,
+      ...others
+    },
+    ref,
+  ) => {
     const [rows, setRows] = useState(1);
     const [focus, setFocus] = useState(false);
 
@@ -24,6 +37,8 @@ const Input = React.forwardRef(
     return (
       <TextInput
         {...others}
+        editable={!disabled}
+        selectTextOnFocus={!disabled}
         autoCapitalize="none"
         autoComplete="off"
         autoCorrect={false}
@@ -33,7 +48,7 @@ const Input = React.forwardRef(
         placeholderTextColor={StyleSheet.value('$inputPlaceholderColor')}
         ref={ref}
         rows={rows}
-        textAlignVertical="center"
+        textAlignVertical={!others.multiline ? 'center' : others.textAlignVertical}
         underlineColorAndroid="transparent"
         value={value?.toString()}
         onBlur={() => setFocus(false)}
@@ -44,7 +59,15 @@ const Input = React.forwardRef(
         style={[
           style.input,
           align && style[align],
-          focus || !!value ? style.focus : error ? style.error : valid ? style.valid : undefined,
+          disabled
+            ? style.disabled
+            : focus || !!value
+            ? style.focus
+            : error
+            ? style.error
+            : valid
+            ? style.valid
+            : undefined,
           others.style,
         ]}
       />
@@ -54,9 +77,11 @@ const Input = React.forwardRef(
 
 Input.propTypes = {
   align: PropTypes.oneOf(['left', 'center', 'right']),
+  disabled: PropTypes.func,
   error: PropTypes.bool,
   icon: PropTypes.string,
   keyboard: PropTypes.string,
+  multiline: PropTypes.bool,
   placeholder: PropTypes.string,
   valid: PropTypes.bool,
   value: PropTypes.string,

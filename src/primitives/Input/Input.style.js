@@ -33,6 +33,12 @@ export const style = StyleSheet.create({
     }),
   },
 
+  disabled: {
+    backgroundColor: '$colorBorder',
+    borderColor: '$colorBorder',
+    color: '$colorDisabled',
+  },
+
   error: {
     backgroundColor: '$inputBackgroundColorFocus',
     borderColor: '$colorError',
