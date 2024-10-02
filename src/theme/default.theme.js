@@ -61,7 +61,7 @@ export const DefaultTheme = {
   $inputBorderColorError: '$colorError',
   // -- valid
   $inputBackgroundColorValid: '$inputBackgroundColorFocus',
-  $inputBorderColorValid: '$colorAccent',
+  $inputBorderColorValid: '$colorSuccess',
   // -- <View> -----------------------------------------------------------------
   $viewGap: '$spaceM',
   $viewOffset: '$spaceM',
