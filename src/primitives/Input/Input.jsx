@@ -38,7 +38,6 @@ const Input = React.forwardRef(
       <TextInput
         {...others}
         editable={!disabled}
-        selectTextOnFocus={!disabled}
         autoCapitalize="none"
         autoComplete="off"
         autoCorrect={false}
@@ -77,7 +76,7 @@ const Input = React.forwardRef(
 
 Input.propTypes = {
   align: PropTypes.oneOf(['left', 'center', 'right']),
-  disabled: PropTypes.func,
+  disabled: PropTypes.bool,
   error: PropTypes.bool,
   icon: PropTypes.string,
   keyboard: PropTypes.string,
