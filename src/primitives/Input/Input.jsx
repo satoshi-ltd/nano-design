@@ -54,7 +54,7 @@ const Input = React.forwardRef(
         onChangeText={handleChange}
         onContentSizeChange={others.multiline && value?.length ? handleContentSizeChange : undefined}
         onFocus={() => setFocus(true)}
-        onSubmitEditing={Keyboard.dismiss}
+        onSubmitEditing={others.onSubmitEditing || Keyboard.dismiss}
         style={[
           style.input,
           align && style[align],
