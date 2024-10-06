@@ -4,11 +4,13 @@ export const style = StyleSheet.create({
   text: {
     fontFamily: 'font-default',
     fontWeight: '$fontWeightDefault',
+    userSelect: 'none',
   },
 
   textSecondary: {
     fontFamily: 'font-default-secondary',
     fontWeight: '$fontWeightDefaultSecondary',
+    userSelect: 'none',
   },
 
   bold: {

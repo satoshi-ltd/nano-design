@@ -24,7 +24,6 @@ const Text = ({
     {...others}
     allowFontScaling={false}
     numberOfLines={ellipsizeMode ? 1 : others.numberOfLines}
-    selectable={false}
     style={[
       !secondary ? style.text : style.textSecondary,
       getColor(color),
