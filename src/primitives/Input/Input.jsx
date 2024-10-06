@@ -37,7 +37,6 @@ const Input = React.forwardRef(
     return (
       <TextInput
         {...others}
-        editable={!disabled}
         autoCapitalize="none"
         autoComplete="off"
         autoCorrect={false}
@@ -45,6 +44,7 @@ const Input = React.forwardRef(
         inputMode={keyboard}
         placeholder={!focus ? placeholder : undefined}
         placeholderTextColor={StyleSheet.value('$inputPlaceholderColor')}
+        readOnly={disabled}
         ref={ref}
         rows={rows}
         textAlignVertical={!others.multiline ? 'center' : others.textAlignVertical}
