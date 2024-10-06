@@ -23,6 +23,8 @@ export const DefaultTheme = {
   $fontSizeBody: 17,
   $fontSizeCaption: 14,
   $fontSizeTiny: 11,
+  $lineHeightDefaultRatio: 1.3,
+  $lineHeightBodyRatio: 1.5,
 
   // -- spacing ----------------------------------------------------------------
   $spaceXXS: 2,
