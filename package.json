@@ -18,7 +18,7 @@
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "expo": "^51.0.34"
+    "expo": "^52.0.0"
   },
   "devDependencies": {
     "@satoshi-ltd/eslint": "^0.1",
