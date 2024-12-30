@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
-import { KeyboardAvoidingView, Platform, SafeAreaView, useWindowDimensions } from 'react-native';
+import React from 'react';
+import { KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
 
 import { style } from './Modal.style';
 import { Icon, Pressable, View } from '../../primitives';
@@ -8,30 +8,18 @@ import { Icon, Pressable, View } from '../../primitives';
 const presentation = 'transparentModal';
 
 const Modal = ({ fullscreen = false, onClose, ...others }) => {
-  const { height: windowHeight } = useWindowDimensions();
-
-  const [layoutHeight, setLayoutHeight] = useState(0);
-
   return presentation === 'transparentModal' ? (
     <View style={style.overflow}>
-      <SafeAreaView
-        onLayout={({ nativeEvent: { layout = {} } = {} }) => {
-          if (layout.height && Platform.OS === 'ios') setLayoutHeight(layout.height);
-        }}
-        style={[style.safeAreaView, fullscreen && style.fullscreen]}
-      >
-        {onClose && (
-          <Pressable onPress={onClose} style={style.pressableClose}>
-            <Icon name="chevron-down" title />
-          </Pressable>
-        )}
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          keyboardVerticalOffset={windowHeight - layoutHeight}
-        >
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <SafeAreaView style={[style.safeAreaView, fullscreen && style.fullscreen]}>
+          {onClose && (
+            <Pressable onPress={onClose} style={style.pressableClose}>
+              <Icon name="chevron-down" title />
+            </Pressable>
+          )}
           <View {...others} style={[style.content, onClose && style.contentModal, others.style]} />
-        </KeyboardAvoidingView>
-      </SafeAreaView>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
     </View>
   ) : (
     <SafeAreaView>
