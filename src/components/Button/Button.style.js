@@ -2,13 +2,21 @@ import StyleSheet from 'react-native-extended-stylesheet';
 
 export const style = StyleSheet.create({
   button: {
+    alignContent: 'center',
     alignItems: 'center',
     borderRadius: '$buttonRadius',
     justifyContent: 'center',
-    minHeight: '$buttonHeight',
+    flexDirection: 'row',
+    gap: '$spaceS',
     maxHeight: '$buttonHeight',
+    minHeight: '$buttonHeight',
+    minWidth: '$buttonHeight',
     overflow: 'hidden',
-    paddingHorizontal: '$buttonHeight / 2',
+    paddingHorizontal: '$buttonHeight / 3',
+  },
+
+  buttonIcon: {
+    paddingHorizontal: 0,
   },
 
   disabled: {
@@ -34,14 +42,23 @@ export const style = StyleSheet.create({
     backgroundColor: '$buttonColorSecondary',
   },
 
-  small: {
-    minHeight: '$buttonSmallHeight',
-    maxHeight: '$buttonSmallHeight',
-    paddingHorizontal: '$buttonSmallHeight / 4',
-  },
-
   text: {
     fontFamily: '$buttonFontFamily',
     fontWeight: '$buttonFontWeight',
+  },
+
+  small: {
+    gap: '$spaceXS',
+    maxHeight: '$buttonSmallHeight',
+    minHeight: '$buttonSmallHeight',
+    minWidth: '$buttonSmallHeight',
+    paddingHorizontal: '$buttonSmallHeight / 3',
+  },
+
+  large: {
+    maxHeight: '$buttonLargeHeight',
+    minHeight: '$buttonLargeHeight',
+    minWidth: '$buttonLargeHeight',
+    paddingHorizontal: '$buttonLargeHeight / 3',
   },
 });

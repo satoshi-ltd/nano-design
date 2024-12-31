@@ -1,10 +1,10 @@
 import { useFocusEffect } from '@react-navigation/native';
+import { ScrollView, View } from '@satoshi-ltd/nano-design';
 import PropTypes from 'prop-types';
 import React, { useCallback, useRef } from 'react';
 import { KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
 
 import { style } from './Screen.style';
-import { ScrollView, View } from '../../primitives';
 
 const Screen = ({ disableScroll = false, refreshScroll = true, ...others }) => {
   const scrollview = useRef(null);
@@ -17,17 +17,23 @@ const Screen = ({ disableScroll = false, refreshScroll = true, ...others }) => {
     }, []),
   );
 
+  const isWeb = Platform.OS === 'web';
+
   return (
     <SafeAreaView style={style.safeAreaView}>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'position' : 'height'} style={style.scrollView}>
-        {!disableScroll ? (
+      {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{ flex: 1 }}> */}
+      {React.createElement(
+        !isWeb ? KeyboardAvoidingView : React.Fragment,
+        !isWeb ? { behavior: disableScroll ? 'padding' : 'height' } : {},
+        !disableScroll ? (
           <ScrollView ref={scrollview} style={style.scrollView}>
             <View {...others} />
           </ScrollView>
         ) : (
           <View {...others} />
-        )}
-      </KeyboardAvoidingView>
+        ),
+      )}
+      {/* </TouchableWithoutFeedback> */}
     </SafeAreaView>
   );
 };

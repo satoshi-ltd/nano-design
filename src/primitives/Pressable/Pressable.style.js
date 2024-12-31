@@ -8,6 +8,10 @@ export const style = StyleSheet.create({
     position: 'relative',
   },
 
+  disabled: {
+    pointerEvents: 'none',
+  },
+
   overflow: {
     backgroundColor: () => opacity(StyleSheet.value('$colorBase'), 0.33),
     bottom: 0,

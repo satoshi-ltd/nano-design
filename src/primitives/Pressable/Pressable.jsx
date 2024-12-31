@@ -1,20 +1,27 @@
+import * as Haptics from 'expo-haptics';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Pressable as PressableBase, View as ViewBase } from 'react-native';
+import { Platform, Pressable as PressableBase, View as ViewBase } from 'react-native';
 
 import { style } from './Pressable.style';
 
 const Pressable = ({ children, feedback = true, onPress, ...others }) => (
   <PressableBase
     {...others}
-    pointerEvents={onPress ? others.pointerEvents : 'none'}
-    onPress={onPress}
-    style={[style.container, others.style]}
+    onPress={
+      onPress
+        ? () => {
+            if (Platform.OS === 'ios') Haptics.selectionAsync();
+            onPress();
+          }
+        : undefined
+    }
+    style={[style.container, !onPress && style.disabled, others.style]}
   >
     {({ pressed }) => (
       <>
         {children}
-        {feedback && pressed && <ViewBase pointerEvents="none" style={style.overflow} />}
+        {feedback && pressed && <ViewBase style={[style.overflow, style.disabled]} />}
       </>
     )}
   </PressableBase>

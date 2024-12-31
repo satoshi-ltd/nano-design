@@ -2,6 +2,16 @@ import { Platform } from 'react-native';
 import StyleSheet from 'react-native-extended-stylesheet';
 
 export const style = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+  },
+
+  icon: {
+    position: 'absolute',
+    right: 16,
+    alignSelf: 'flex-end',
+  },
+
   input: {
     backgroundColor: '$inputBackgroundColor',
     borderColor: '$inputBorderColor',
@@ -23,18 +33,23 @@ export const style = StyleSheet.create({
     }),
   },
 
-  error: {
-    borderColor: '$inputBorderColorFocus',
+  disabled: {
+    backgroundColor: '$colorBorder',
+    borderColor: '$colorBorder',
+    color: '$colorDisabled',
   },
+
+  error: {
+    backgroundColor: '$inputBackgroundColorFocus',
+    borderColor: '$colorError',
+    color: '$colorError',
+  },
+
+  valid: {},
 
   focus: {
     backgroundColor: '$inputBackgroundColorFocus',
     borderColor: '$inputBorderColorFocus',
-  },
-
-  valid: {
-    backgroundColor: '$inputBackgroundColorFocus',
-    borderColor: '$inputBorderColorValid',
   },
 
   // align

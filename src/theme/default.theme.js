@@ -10,18 +10,21 @@ export const DefaultTheme = {
 
   // States
   $colorError: '#ff5c5c',
-  $colorWarning: '#ff5c5c',
-  $colorSuccess: '#ff5c5c',
+  $colorWarning: '#ffcc00',
+  $colorSuccess: '#28a745',
 
   // -- typography -------------------------------------------------------------
   $fontWeightDefault: '400',
   $fontWeightBold: '700',
-  $fontWeightAccentuate: '700',
-  $fontSizeTitle: 28,
+  $fontWeightDefaultSecondary: '400',
+  $fontWeightBoldSecondary: '700',
+  $fontSizeTitle: 24,
   $fontSizeSubtitle: 20,
-  $fontSizeBody: 16,
-  $fontSizeCaption: 13,
-  $fontSizeTiny: 10,
+  $fontSizeBody: 17,
+  $fontSizeCaption: 14,
+  $fontSizeTiny: 11,
+  $lineHeightDefaultRatio: 1.3,
+  $lineHeightBodyRatio: 1.5,
 
   // -- spacing ----------------------------------------------------------------
   $spaceXXS: 2,
@@ -60,7 +63,7 @@ export const DefaultTheme = {
   $inputBorderColorError: '$colorError',
   // -- valid
   $inputBackgroundColorValid: '$inputBackgroundColorFocus',
-  $inputBorderColorValid: '$colorAccent',
+  $inputBorderColorValid: '$colorSuccess',
   // -- <View> -----------------------------------------------------------------
   $viewGap: '$spaceM',
   $viewOffset: '$spaceM',
@@ -75,8 +78,9 @@ export const DefaultTheme = {
   $buttonFontWeight: '$fontWeightDefault',
   $buttonColorPrimary: '$colorContent',
   $buttonColorSecondary: '$colorAccent',
-  $buttonHeight: '$spaceXL + $spaceL',
-  $buttonSmallHeight: '$spaceXL',
+  $buttonHeight: '$spaceXXL + $spaceS',
+  $buttonSmallHeight: '$spaceXL - $spaceXS',
+  $buttonLargeHeight: '$spaceXXL + $spaceM',
   $buttonRadius: '$spaceS',
   // -- <Modal> ----------------------------------------------------------------
   $modalOverflowBackgroundColor: '$colorBase',

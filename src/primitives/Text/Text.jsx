@@ -13,6 +13,7 @@ const Text = ({
   children,
   color = 'content',
   ellipsizeMode,
+  secondary = false,
   // -- size
   title,
   subtitle,
@@ -23,13 +24,12 @@ const Text = ({
   <BaseText
     {...others}
     allowFontScaling={false}
-    numberOfLines={ellipsizeMode ? 1 : undefined}
-    selectable={false}
+    numberOfLines={ellipsizeMode ? 1 : others.numberOfLines}
     style={[
-      style.text,
+      !secondary ? style.text : style.textSecondary,
       getColor(color),
       getFontSize({ title, subtitle, caption, tiny }),
-      accentuate && style.accentuate,
+      bold ? (!secondary ? style.bold : style.boldSecondary) : undefined,
       align && style[align],
       bold && style.bold,
       others.style,
@@ -48,6 +48,7 @@ Text.propTypes = {
   children: PropTypes.any,
   color: PropTypes.string,
   ellipsizeMode: PropTypes.bool,
+  secondary: PropTypes.bool,
   // -- size
   title: PropTypes.bool,
   subtitle: PropTypes.bool,

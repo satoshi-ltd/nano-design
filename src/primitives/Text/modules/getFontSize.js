@@ -2,33 +2,28 @@ import StyleSheet from 'react-native-extended-stylesheet';
 
 const style = StyleSheet.create({
   title: {
-    // backgroundColor: 'blue',
     fontSize: '$fontSizeTitle',
-    lineHeight: '$fontSizeTitle * 1.2',
+    lineHeight: '$fontSizeTitle * $lineHeightDefaultRatio',
   },
 
   subtitle: {
-    // backgroundColor: 'green',
     fontSize: '$fontSizeSubtitle',
-    lineHeight: '$fontSizeSubtitle * 1.3',
+    lineHeight: '$fontSizeSubtitle * $lineHeightDefaultRatio',
   },
 
   body: {
-    // backgroundColor: 'magenta',
     fontSize: '$fontSizeBody',
-    lineHeight: '$fontSizeBody * 1.5',
+    lineHeight: '$fontSizeBody * $lineHeightBodyRatio',
   },
 
   caption: {
-    // backgroundColor: 'orange',
     fontSize: '$fontSizeCaption',
-    lineHeight: '$fontSizeCaption * 1.4',
+    lineHeight: '$fontSizeCaption * $lineHeightDefaultRatio',
   },
 
   tiny: {
-    // backgroundColor: 'red',
     fontSize: '$fontSizeTiny',
-    lineHeight: '$fontSizeTiny * 1.2',
+    lineHeight: '$fontSizeTiny * $lineHeightDefaultRatio',
   },
 });
 
