@@ -13,6 +13,11 @@ export const style = StyleSheet.create({
     userSelect: 'none',
   },
 
+  accentuate: {
+    fontFamily: 'font-accentuate',
+    fontWeight: '$fontWeightAccentuate',
+  },
+
   bold: {
     fontFamily: 'font-bold',
     fontWeight: '$fontWeightBold',
