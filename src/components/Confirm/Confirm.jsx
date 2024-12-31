@@ -18,15 +18,16 @@ const Confirm = ({
 }) => (
   <Modal onClose={onCancel}>
     <View gap {...others}>
-      <View>
-        {title && (
-          <Text bold subtitle>
-            {title}
-          </Text>
-        )}
-        {caption && <Text>{caption}</Text>}
-      </View>
+      {title && (
+        <Text bold subtitle>
+          {title}
+        </Text>
+      )}
+
+      {caption && <Text>{caption}</Text>}
+
       {children}
+
       <View gap row style={style.buttons}>
         {onCancel && (
           <Button flex outlined onPress={onCancel}>
