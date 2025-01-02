@@ -1,6 +1,6 @@
 {
   "name": "@satoshi-ltd/nano-design",
-  "version": "0.2.27",
+  "version": "0.2.28",
   "description": "Naive design system",
   "module": "build/module/index.js",
   "react-native": "src/index.js",
