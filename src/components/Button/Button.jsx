@@ -24,7 +24,7 @@ const Button = ({
     color: disabled
       ? 'disabled'
       : !outlined
-      ? StyleSheet.value(secondary ? '$buttonChildrenColorSecondary' : 'buttonChildrenColor')
+      ? StyleSheet.value(secondary ? '$buttonChildrenColorSecondary' : '$buttonChildrenColor')
       : undefined,
   };
 
