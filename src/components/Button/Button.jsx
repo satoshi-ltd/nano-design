@@ -21,7 +21,11 @@ const Button = ({
 }) => {
   const common = {
     caption: small,
-    color: disabled ? 'disabled' : secondary || outlined ? 'content' : 'base',
+    color: disabled
+      ? 'disabled'
+      : !outlined
+      ? StyleSheet.value(secondary ? '$buttonChildrenColorSecondary' : 'buttonChildrenColor')
+      : undefined,
   };
 
   return (
