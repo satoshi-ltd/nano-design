@@ -38,4 +38,4 @@ const style = StyleSheet.create({
   },
 });
 
-export const getColor = (value) => style[value];
+export const getColor = (value) => style[value] || { color: value };

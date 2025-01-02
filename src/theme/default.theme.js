@@ -78,6 +78,8 @@ export const DefaultTheme = {
   $buttonFontWeight: '$fontWeightDefault',
   $buttonColorPrimary: '$colorContent',
   $buttonColorSecondary: '$colorAccent',
+  $buttonChildrenColor: '$colorBase',
+  $buttonChildrenColorSecondary: '$colorContent',
   $buttonHeight: '$spaceXXL + $spaceS',
   $buttonSmallHeight: '$spaceXL - $spaceXS',
   $buttonLargeHeight: '$spaceXXL + $spaceM',

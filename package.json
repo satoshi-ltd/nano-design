@@ -1,6 +1,6 @@
 {
   "name": "@satoshi-ltd/nano-design",
-  "version": "0.2.25",
+  "version": "0.2.44",
   "description": "Naive design system",
   "module": "build/module/index.js",
   "react-native": "src/index.js",
@@ -14,7 +14,7 @@
     "build": "bob build",
     "prepare": "bob build",
     "lint": "eslint --cache --fix --format codeframe --ext .jsx,.js src",
-    "publish": "npm version patch && npm publish",
+    "release": "npm version patch && npm publish",
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
@@ -25,8 +25,8 @@
     "react-native-builder-bob": "^0.23.2"
   },
   "peerDependencies": {
-    "prop-types": "*",
     "expo-haptics": "^13.0",
+    "prop-types": "*",
     "react": "*",
     "react-native": "*",
     "react-native-extended-stylesheet": "*",

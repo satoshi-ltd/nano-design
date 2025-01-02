@@ -7,7 +7,6 @@ import { getColor, getFontSize } from './modules';
 import { style } from './Text.style';
 
 const Text = ({
-  accentuate = false,
   align,
   bold,
   children,
@@ -31,7 +30,6 @@ const Text = ({
       getFontSize({ title, subtitle, caption, tiny }),
       bold ? (!secondary ? style.bold : style.boldSecondary) : undefined,
       align && style[align],
-      bold && style.bold,
       others.style,
     ]}
   >
@@ -42,7 +40,6 @@ const Text = ({
 Text.displayName = 'Text';
 
 Text.propTypes = {
-  accentuate: PropTypes.bool,
   align: PropTypes.oneOf(['left', 'center', 'right']),
   bold: PropTypes.bool,
   children: PropTypes.any,
