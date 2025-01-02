@@ -30,7 +30,6 @@ const Text = ({
       getFontSize({ title, subtitle, caption, tiny }),
       bold ? (!secondary ? style.bold : style.boldSecondary) : undefined,
       align && style[align],
-      bold && style.bold,
       others.style,
     ]}
   >
