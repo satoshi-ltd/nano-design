@@ -21,7 +21,7 @@ const Notification = ({ children, error = false, text, visible, onClose }) => {
         <Icon color="base" name={error ? 'alert-circle-outline' : 'information-outline'} />
         <View style={style.content}>
           {text && (
-            <Text bold color="base" caption style={style.text}>
+            <Text bold color="base" caption>
               {text}
             </Text>
           )}

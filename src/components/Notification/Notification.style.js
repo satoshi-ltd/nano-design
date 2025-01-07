@@ -12,7 +12,7 @@ export const style = StyleSheet.create({
     backgroundColor: '$colorError',
   },
 
-  text: {
+  content: {
     flex: 1,
   },
 
@@ -20,9 +20,9 @@ export const style = StyleSheet.create({
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'row',
-    gap: '$spaceXS',
+    gap: '$viewOffset / 2',
     marginHorizontal: '$viewOffset',
-    marginVertical: '$spaceS',
+    marginVertical: '$viewOffset / 2',
     width: 'auto',
   },
 });
