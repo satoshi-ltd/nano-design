@@ -30,6 +30,7 @@ const Button = ({
 
   return (
     <Pressable
+      {...others}
       disabled={disabled}
       feedback
       onPress={!disabled && !activity ? onPress : undefined}
