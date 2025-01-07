@@ -4,6 +4,7 @@ export * from './Card';
 export * from './Confirm';
 export * from './Menu';
 export * from './Modal';
+export * from './Notification';
 export * from './Pagination';
 export * from './Screen';
 export * from './SectionList';
