@@ -2,7 +2,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import { ScrollView, View } from '@satoshi-ltd/nano-design';
 import PropTypes from 'prop-types';
 import React, { useCallback, useRef } from 'react';
-import { KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
+import { KeyboardAvoidingView, Platform } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { style } from './Screen.style';
 
