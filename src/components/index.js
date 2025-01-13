@@ -8,3 +8,4 @@ export * from './Notification';
 export * from './Pagination';
 export * from './Screen';
 export * from './SectionList';
+export * from './Tabs';
