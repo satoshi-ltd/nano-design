@@ -6,7 +6,7 @@ import { Animated, Platform, SafeAreaView } from 'react-native';
 import { style } from './Notification.style';
 import { Icon, Pressable, Text, View } from '../../primitives';
 
-const Notification = ({ children, error = false, text, visible, onClose }) => {
+const Notification = ({ children, error = false, icon, text, visible, onClose, ...others }) => {
   const translateY = useRef(new Animated.Value(-100)).current; // Valor inicial fuera de la pantalla
 
   useEffect(() => {
@@ -15,13 +15,19 @@ const Notification = ({ children, error = false, text, visible, onClose }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible]);
 
+  const { title, subtitle, caption, tiny } = others;
+
   return (
     <Animated.View style={[style.notification, error && style.error, { transform: [{ translateY }] }]}>
-      <SafeAreaView style={style.safeAreaView}>
-        <Icon color="base" name={error ? 'alert-circle-outline' : 'information-outline'} />
+      <SafeAreaView style={[style.safeAreaView, others.style]}>
+        <Icon
+          {...{ title, subtitle, caption, tiny }}
+          color="base"
+          name={icon || (error ? 'alert-circle-outline' : 'information-outline')}
+        />
         <View style={style.content}>
           {text && (
-            <Text bold color="base" caption>
+            <Text bold color="base" {...{ title, subtitle, caption, tiny }}>
               {text}
             </Text>
           )}
@@ -43,6 +49,7 @@ Notification.displayName = 'Notification';
 Notification.propTypes = {
   children: PropTypes.node,
   error: PropTypes.bool,
+  icon: PropTypes.string,
   text: PropTypes.string,
   visible: PropTypes.bool,
   onClose: PropTypes.func,
