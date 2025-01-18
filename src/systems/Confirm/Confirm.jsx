@@ -2,9 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { style } from './Confirm.style';
+import { Button, Modal } from '../../components';
 import { Text, View } from '../../primitives';
-import { Button } from '../Button';
-import { Modal } from '../Modal';
 
 const Confirm = ({
   accept = 'Accept',
@@ -17,7 +16,7 @@ const Confirm = ({
   ...others
 }) => (
   <Modal onClose={onCancel}>
-    <View gap {...others}>
+    <View {...others} style={[style.container, others.style]}>
       {title && (
         <Text bold subtitle>
           {title}
