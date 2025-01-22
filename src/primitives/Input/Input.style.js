@@ -50,6 +50,7 @@ export const style = StyleSheet.create({
   focus: {
     backgroundColor: '$inputBackgroundColorFocus',
     borderColor: '$inputBorderColorFocus',
+    zIndex: 1,
   },
 
   // align
