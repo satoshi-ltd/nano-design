@@ -10,6 +10,7 @@ import { Icon, Pressable, Text, View } from '../../primitives';
 const Setting = ({
   activity = false,
   caption,
+  color,
   disabled,
   icon,
   iconColor,
@@ -22,7 +23,13 @@ const Setting = ({
   <Pressable onPress={onPress && !disabled && !activity ? onPress : undefined}>
     <View gap row>
       {icon && (
-        <Card color={disabled ? 'border' : 'accent'} small style={{ width: 'auto' }}>
+        <Card
+          small
+          style={{
+            backgroundColor: disabled ? StyleSheet.value('$colorBorder') : color || StyleSheet.value('$colorAccent'),
+            width: 'auto',
+          }}
+        >
           <Icon color={iconColor} name={icon} />
         </Card>
       )}
@@ -55,6 +62,7 @@ Setting.displayName = 'Setting';
 Setting.propTypes = {
   activity: PropTypes.bool,
   caption: PropTypes.string,
+  color: PropTypes.string,
   disabled: PropTypes.bool,
   icon: PropTypes.string,
   iconColor: PropTypes.string,
