@@ -25,6 +25,7 @@
     "react-native-builder-bob": "^0.23.2"
   },
   "peerDependencies": {
+    "expo-blur": "*",
     "expo-haptics": "^13.0",
     "prop-types": "*",
     "react": "*",
