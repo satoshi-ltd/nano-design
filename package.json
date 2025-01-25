@@ -27,7 +27,6 @@
   "peerDependencies": {
     "expo-blur": "*",
     "expo-haptics": "^13.0",
-    "expo-screen-capture": "*",
     "prop-types": "*",
     "react": "*",
     "react-native": "*",
