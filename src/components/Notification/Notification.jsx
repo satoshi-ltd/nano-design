@@ -1,44 +1,51 @@
 import * as Haptics from 'expo-haptics';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef } from 'react';
-import { Animated, Platform, SafeAreaView } from 'react-native';
+import { Animated, Easing, Platform, SafeAreaView } from 'react-native';
 
 import { style } from './Notification.style';
-import { Icon, Pressable, Text, View } from '../../primitives';
+import { Icon, Pressable, Text, View } from '../primitives';
 
-const Notification = ({ children, error = false, icon, text, visible, onClose, ...others }) => {
+const Notification = ({ children, error = false, icon, text, title, visible, onClose, ...others }) => {
   const translateY = useRef(new Animated.Value(-128)).current;
 
   useEffect(() => {
     if (visible && Platform.OS === 'ios') Haptics.notificationAsync();
-    Animated.timing(translateY, { toValue: visible ? 0 : -128, duration: 300, useNativeDriver: true }).start();
+    Animated.timing(translateY, {
+      duration: 300,
+      easing: Easing.inOut(Easing.ease),
+      toValue: visible ? 0 : -128,
+      useNativeDriver: true,
+    }).start();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible]);
 
-  const { title, subtitle, caption, tiny } = others;
-
   return (
-    <Animated.View style={[style.notification, error && style.error, { transform: [{ translateY }] }]}>
-      <SafeAreaView style={[style.safeAreaView, others.style]}>
-        <Icon
-          {...{ title, subtitle, caption, tiny }}
-          color="base"
-          name={icon || (error ? 'alert-circle-outline' : 'information-outline')}
-        />
-        <View style={style.content}>
-          {text && (
-            <Text bold color="base" {...{ title, subtitle, caption, tiny }}>
-              {text}
-            </Text>
-          )}
-          {children}
-        </View>
+    <Animated.View style={[style.notification, { transform: [{ translateY }] }]}>
+      <SafeAreaView>
+        <View row style={[style.container, error && style.error, others.style]}>
+          <Icon color="base" name={icon || (error ? 'alert-circle-outline' : 'information-outline')} />
 
-        {onClose && (
-          <Pressable onPress={onClose}>
-            <Icon color="base" name="close" />
-          </Pressable>
-        )}
+          <View style={style.content}>
+            {title && (
+              <Text bold caption color="base">
+                {title}
+              </Text>
+            )}
+            {text && (
+              <Text caption color="base" style={style.text}>
+                {text}
+              </Text>
+            )}
+            {children}
+          </View>
+
+          {onClose && (
+            <Pressable onPress={onClose}>
+              <Icon color="base" name="close" />
+            </Pressable>
+          )}
+        </View>
       </SafeAreaView>
     </Animated.View>
   );
@@ -51,7 +58,10 @@ Notification.propTypes = {
   error: PropTypes.bool,
   icon: PropTypes.string,
   text: PropTypes.string,
+  title: PropTypes.string,
   visible: PropTypes.bool,
+  onAccept: PropTypes.func,
+  onCancel: PropTypes.func,
   onClose: PropTypes.func,
 };
 
