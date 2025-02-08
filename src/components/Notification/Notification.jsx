@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import { Animated, Easing, Platform, SafeAreaView } from 'react-native';
 
 import { style } from './Notification.style';
-import { Icon, Pressable, Text, View } from '../primitives';
+import { Icon, Pressable, Text, View } from '../../primitives';
 
 const Notification = ({ children, error = false, icon, text, title, visible, onClose, ...others }) => {
   const translateY = useRef(new Animated.Value(-128)).current;
