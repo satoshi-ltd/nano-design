@@ -21,14 +21,11 @@ const Screen = ({ disableScroll = false, refreshScroll = true, ...others }) => {
   );
 
   useEffect(() => {
-    const handleAppStateChange = (state) => {
+    const subscription = AppState.addEventListener('change', (state) => {
       setInBackground(state === 'background' || state === 'inactive');
-    };
+    });
 
-    AppState.addEventListener('change', handleAppStateChange);
-    return () => {
-      AppState.removeEventListener('change', handleAppStateChange);
-    };
+    return () => subscription.remove();
   }, []);
 
   const isWeb = Platform.OS === 'web';
