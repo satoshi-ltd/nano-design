@@ -1,22 +1,22 @@
 import * as Haptics from 'expo-haptics';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef } from 'react';
-import { Animated, Easing, Platform, SafeAreaView, useWindowDimensions } from 'react-native';
+import { Animated, Easing, Platform, SafeAreaView } from 'react-native';
 
 import { style } from './Notification.style';
 import { Icon, Pressable, Text, View } from '../../primitives';
 
-const Notification = ({ children, error = false, icon, text, title, visible, onClose, ...others }) => {
-  const { height } = useWindowDimensions();
+const GAP = 512;
 
-  const translateY = useRef(new Animated.Value(-height)).current;
+const Notification = ({ children, error = false, icon, text, title, visible, onClose, ...others }) => {
+  const translateY = useRef(new Animated.Value(-GAP)).current;
 
   useEffect(() => {
     if (visible && Platform.OS === 'ios') Haptics.notificationAsync();
     Animated.timing(translateY, {
       duration: 400,
       easing: Easing.inOut(Easing.ease),
-      toValue: visible ? 0 : -height,
+      toValue: visible ? 0 : -GAP,
       useNativeDriver: true,
     }).start();
     // eslint-disable-next-line react-hooks/exhaustive-deps
