@@ -26,8 +26,9 @@ const Notification = ({ children, error = false, icon, text, title, visible, onC
     <Animated.View style={[style.notification, { transform: [{ translateY }] }]}>
       <SafeAreaView>
         <View row style={[style.container, error && style.error, others.style]}>
-          <Icon color="base" name={icon || (error ? 'alert-circle-outline' : 'information-outline')} />
-
+          {(title || text) && (
+            <Icon color="base" name={icon || (error ? 'alert-circle-outline' : 'information-outline')} />
+          )}
           <View style={style.content}>
             {title && (
               <Text bold caption color="base">
