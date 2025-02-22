@@ -8,7 +8,7 @@ import { Text, View } from '../../primitives';
 
 const Confirm = ({
   accept = 'Accept',
-  buttonProps = {},
+  buttonProps = { secondary: true },
   cancel = 'Cancel',
   caption,
   children,
@@ -37,7 +37,7 @@ const Confirm = ({
             </Button>
           )}
 
-          <Button  {...buttonProps} flex onPress={onAccept}>
+          <Button {...buttonProps} flex onPress={onAccept}>
             {accept}
           </Button>
         </View>
