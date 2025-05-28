@@ -7,6 +7,7 @@ import { Icon, Pressable, Text, View } from '../../primitives';
 const Tabs = ({
   accent = false,
   caption = false,
+  color: propColor,
   disabled = false,
   options = [],
   selected: propSelected,
@@ -28,7 +29,7 @@ const Tabs = ({
   return (
     <View {...others} row style={[style.container, others.style]}>
       {options.map(({ icon, text }, index) => {
-        const color = selected === index ? (accent ? 'content' : 'base') : 'contentLight';
+        const color = propColor || selected === index ? (accent ? 'content' : 'base') : 'contentLight';
 
         return (
           <Pressable
@@ -54,6 +55,7 @@ const Tabs = ({
 Tabs.propTypes = {
   accent: PropTypes.bool,
   caption: PropTypes.bool,
+  color: PropTypes.string,
   disabled: PropTypes.bool,
   options: PropTypes.arrayOf(
     PropTypes.shape({
