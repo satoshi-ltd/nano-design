@@ -91,4 +91,12 @@ export const DefaultTheme = {
   $paginationSize: '$spaceS',
   $paginationColor: '$colorBorder',
   $paginationColorActive: '$colorContent',
+
+  // -- <Tabs> -----------------------------------------------------------------
+  $tabsBackgroundColor: '$colorBorder',
+  $tabsColor: '$colorContentLight',
+  $tabsBackgroundColorActive: '$colorContent',
+  $tabsColorActive: '$colorBase',
+  $tabsBackgroundColorActiveSecondary: '$colorAccent',
+  $tabsColorActiveSecondary: '$colorContent',
 };

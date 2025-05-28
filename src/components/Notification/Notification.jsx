@@ -8,7 +8,7 @@ import { Icon, Pressable, Text, View } from '../../primitives';
 
 const GAP = 512;
 
-const Notification = ({ children, error = false, icon, text, title, visible, onClose, ...others }) => {
+const Notification = ({ children, color = 'base', error = false, icon, text, title, visible, onClose, ...others }) => {
   const translateY = useRef(new Animated.Value(-GAP)).current;
 
   useEffect(() => {
@@ -27,16 +27,16 @@ const Notification = ({ children, error = false, icon, text, title, visible, onC
       <SafeAreaView>
         <View row style={[style.container, error && style.error, others.style]}>
           {(title || text) && (
-            <Icon color="base" name={icon || (error ? 'alert-circle-outline' : 'information-outline')} />
+            <Icon color={color} name={icon || (error ? 'alert-circle-outline' : 'information-outline')} />
           )}
           <View style={style.content}>
             {title && (
-              <Text bold caption color="base">
+              <Text bold caption color={color}>
                 {title}
               </Text>
             )}
             {text && (
-              <Text caption color="base" style={style.text}>
+              <Text caption color={color} style={style.text}>
                 {text}
               </Text>
             )}
@@ -45,7 +45,7 @@ const Notification = ({ children, error = false, icon, text, title, visible, onC
 
           {onClose && (
             <Pressable onPress={onClose}>
-              <Icon color="base" name="close" />
+              <Icon color={color} name="close" />
             </Pressable>
           )}
         </View>
@@ -58,6 +58,7 @@ Notification.displayName = 'Notification';
 
 Notification.propTypes = {
   children: PropTypes.node,
+  color: PropTypes.string,
   error: PropTypes.bool,
   icon: PropTypes.string,
   text: PropTypes.string,

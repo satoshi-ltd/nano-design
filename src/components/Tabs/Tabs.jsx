@@ -5,11 +5,11 @@ import { style } from './Tabs.style';
 import { Icon, Pressable, Text, View } from '../../primitives';
 
 const Tabs = ({
-  accent = false,
   caption = false,
-  color: propColor,
+  color,
   disabled = false,
   options = [],
+  secondary = false,
   selected: propSelected,
   tiny = true,
   onChange,
@@ -29,19 +29,24 @@ const Tabs = ({
   return (
     <View {...others} row style={[style.container, others.style]}>
       {options.map(({ icon, text }, index) => {
-        const color = propColor || selected === index ? (accent ? 'content' : 'base') : 'contentLight';
+        const isSelected = selected === index;
+
+        const textProps = {
+          color,
+          style: [isSelected ? (secondary ? style.textSecondaryActive : style.textActive) : style.text],
+        };
 
         return (
           <Pressable
             disabled={disabled}
             key={`tab:${text || icon}`}
             onPress={() => handlePress(index)}
-            style={[style.item, selected === index && style.active, selected === index && accent && style.accent]}
+            style={[style.item, isSelected && (secondary ? style.secondaryActive : style.active)]}
           >
-            {icon && <Icon color={color} name={icon} />}
+            {icon && <Icon color={color} name={icon} {...textProps} />}
 
             {text && (
-              <Text bold {...{ caption, tiny }} color={color}>
+              <Text bold {...{ caption, tiny }} {...textProps}>
                 {text}
               </Text>
             )}
@@ -53,7 +58,6 @@ const Tabs = ({
 };
 
 Tabs.propTypes = {
-  accent: PropTypes.bool,
   caption: PropTypes.bool,
   color: PropTypes.string,
   disabled: PropTypes.bool,
@@ -63,6 +67,7 @@ Tabs.propTypes = {
       text: PropTypes.string,
     }),
   ),
+  secondary: PropTypes.bool,
   selected: PropTypes.number,
   tiny: PropTypes.bool,
   onChange: PropTypes.func,
