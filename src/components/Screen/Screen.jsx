@@ -8,7 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { style } from './Screen.style';
 
-const Screen = ({ disableScroll = false, refreshScroll = true, ...others }) => {
+const Screen = ({ disableScroll = false, refreshScroll = true, safeArea = true, ...others }) => {
   const [inBackground, setInBackground] = useState(false);
   const scrollview = useRef(null);
 
@@ -35,9 +35,11 @@ const Screen = ({ disableScroll = false, refreshScroll = true, ...others }) => {
       <Modal visible={inBackground} transparent={true} animationType="fade">
         <BlurView style={StyleSheet.absoluteFillObject} />
       </Modal>
-      <SafeAreaView style={style.safeAreaView}>
-        {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{ flex: 1 }}> */}
-        {React.createElement(
+
+      {React.createElement(
+        safeArea ? SafeAreaView : React.Fragment,
+        safeArea ? { style: style.safeAreaView } : {},
+        React.createElement(
           !isWeb ? KeyboardAvoidingView : React.Fragment,
           !isWeb ? { behavior: disableScroll ? 'padding' : 'height' } : {},
           !disableScroll ? (
@@ -47,9 +49,8 @@ const Screen = ({ disableScroll = false, refreshScroll = true, ...others }) => {
           ) : (
             <View {...others} />
           ),
-        )}
-        {/* </TouchableWithoutFeedback> */}
-      </SafeAreaView>
+        ),
+      )}
     </>
   );
 };
@@ -60,6 +61,7 @@ Screen.propTypes = {
   children: PropTypes.node,
   disableScroll: PropTypes.bool,
   refreshScroll: PropTypes.bool,
+  safeArea: PropTypes.bool,
 };
 
 export { Screen };
