@@ -23,6 +23,10 @@ export const style = StyleSheet.create({
     fontWeight: '$fontWeightBoldSecondary',
   },
 
+  flex: {
+    flex: 1,
+  },
+
   // align
   left: {
     alignSelf: 'flex-start',

@@ -11,7 +11,7 @@ const Text = ({
   bold,
   children,
   color = 'content',
-  ellipsizeMode,
+  flex = false,
   secondary = false,
   // -- size
   title,
@@ -23,13 +23,13 @@ const Text = ({
   <BaseText
     {...others}
     allowFontScaling={false}
-    numberOfLines={ellipsizeMode ? 1 : others.numberOfLines}
     style={[
       !secondary ? style.text : style.textSecondary,
       getColor(color),
       getFontSize({ title, subtitle, caption, tiny }),
       bold ? (!secondary ? style.bold : style.boldSecondary) : undefined,
       align && style[align],
+      flex && style.flex,
       others.style,
     ]}
   >
@@ -44,7 +44,7 @@ Text.propTypes = {
   bold: PropTypes.bool,
   children: PropTypes.any,
   color: PropTypes.string,
-  ellipsizeMode: PropTypes.bool,
+  flex: PropTypes.bool,
   secondary: PropTypes.bool,
   // -- size
   title: PropTypes.bool,
