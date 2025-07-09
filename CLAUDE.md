@@ -6,7 +6,7 @@ This file provides comprehensive guidance for AI assistants when working with th
 
 `@satoshi-ltd/nano-design` is a lightweight, flexible React Native design system library built with Expo. It provides a comprehensive set of reusable UI components and primitives for building consistent, accessible mobile applications.
 
-**Version:** 0.2.83
+**Version:** 0.2.84
 **Package:** `@satoshi-ltd/nano-design`
 **Repository:** https://github.com/satoshi-ltd/nano-design
 **License:** MIT
@@ -490,3 +490,27 @@ This design system is optimized for consistency, accessibility, and developer ex
 - Ensure all file paths and command references are accurate
 
 This ensures project continuity and context preservation across development sessions.
+
+## Automated Pipeline Commands
+
+### Pipeline Patch
+When the user says **"pipeline patch"**, automatically execute the complete patch release process:
+
+1. **Version bump:** Increment patch version in package.json and CLAUDE.md
+2. **Build:** Execute `npm run build` and stop if it fails
+3. **Publish:** Execute `npm publish` and stop if it fails
+4. **Commit:** Create git commit with format `📦 v0.2.XX`
+5. **Push:** Execute `git push` only if all previous steps succeeded
+
+**Error handling:**
+- If any step fails, stop the pipeline and report the error
+- Do not proceed to next steps if current step fails
+- Always use TodoWrite to track pipeline progress
+
+**Usage:**
+```
+User: "pipeline patch"
+Assistant: [Executes full automated pipeline with error handling]
+```
+
+This command streamlines the release process and ensures consistency across all patch releases.
