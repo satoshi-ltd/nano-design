@@ -46,7 +46,7 @@ The library follows a strict three-tier component architecture:
 **Components:**
 - `Action` - Action buttons (`src/components/Action/`)
 - `Button` - Primary button with variants (primary, secondary, outlined) (`src/components/Button/`)
-- `Card` - Content card with color utilities and background image support (`src/components/Card/`)
+- `Card` - Content card with color utilities, background image, and blur support (`src/components/Card/`)
 - `Image` - Image component with loading indicator (`src/components/Image/`)
 - `Modal` - Modal dialog (`src/components/Modal/`)
 - `Notification` - Toast/notification component (`src/components/Notification/`)
@@ -515,9 +515,9 @@ When the user says **"pipeline patch"** or **"pipeline patch [description]"**, a
 **Usage options:**
 ```
 User: "pipeline patch"
-Assistant: [Prompts for description, then executes pipeline]
+Assistant: [Analyzes changes automatically and executes pipeline]
 
-User: "pipeline patch Add image background support to Card"
+User: "pipeline patch [description]"
 Assistant: [Executes pipeline with provided description]
 ```
 
