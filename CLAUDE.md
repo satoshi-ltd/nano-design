@@ -33,6 +33,7 @@ The library follows a strict three-tier component architecture:
 ### 1. Primitives (`src/primitives/`)
 **Purpose:** Basic building blocks that wrap React Native components
 **Components:**
+- `Activity` - Activity indicator component with platform-specific behavior (`src/primitives/Activity/`)
 - `Icon` - Icon component with size utilities (`src/primitives/Icon/`)
 - `Input` - Text input with theme integration (`src/primitives/Input/`)
 - `Pressable` - Touchable component with feedback (`src/primitives/Pressable/`)
@@ -46,6 +47,7 @@ The library follows a strict three-tier component architecture:
 - `Action` - Action buttons (`src/components/Action/`)
 - `Button` - Primary button with variants (primary, secondary, outlined) (`src/components/Button/`)
 - `Card` - Content card with color utilities (`src/components/Card/`)
+- `Image` - Image component with loading indicator (`src/components/Image/`)
 - `Modal` - Modal dialog (`src/components/Modal/`)
 - `Notification` - Toast/notification component (`src/components/Notification/`)
 - `Pagination` - Dot-based pagination (`src/components/Pagination/`)
@@ -115,6 +117,11 @@ The theme provides semantic tokens organized by category:
 - Pagination: `$paginationSize`, `$paginationColor`
 - Tabs: `$tabsBackgroundColor`, `$tabsColor`
 
+## Platform-Specific Behavior
+
+- **Activity Indicator**: Never shows on web (`Platform.OS !== 'web'`) to avoid loading issues
+- **Image Component**: Uses platform detection to conditionally render loading states
+
 ## Component Patterns
 
 ### File Structure
@@ -163,6 +170,118 @@ Components use boolean props for variants:
 - `title`, `subtitle`, `caption`, `tiny` for text sizes
 - `small`, `large` for size variants
 
+#### Component Props Organization
+Props must be organized in this specific order:
+
+1. **Component destructuring:**
+   ```javascript
+   const Component = ({ 
+     // 1. Typical properties (alphabetical)
+     activityColor, 
+     activitySize = 'small', 
+     resizeMode = 'cover', 
+     source, 
+     // 2. Others (contains events and style)
+     ...others 
+   }) => {
+   ```
+
+2. **JSX props ordering:**
+   ```javascript
+   <BaseComponent
+     {...others}              // 1. Spread others first
+     resizeMode={resizeMode}  // 2. Typical properties (alphabetical)
+     source={source}
+     onError={handleError}    // 3. Events (alphabetical)
+     onLoad={handleLoad}
+     onLoadStart={handleLoadStart}
+     style={style.component}  // 4. Style last
+   />
+   ```
+
+3. **PropTypes ordering:**
+   ```javascript
+   Component.propTypes = {
+     // Typical properties only (alphabetical)
+     activityColor: PropTypes.string,
+     activitySize: PropTypes.oneOf(['small', 'large']),
+     resizeMode: PropTypes.oneOf(['cover', 'contain']),
+     source: PropTypes.object.isRequired,
+   };
+   ```
+
+4. **CSS properties ordering:**
+   All CSS properties within each style object must be alphabetical:
+   ```javascript
+   container: {
+     backgroundColor: '$colorBorder',
+     position: 'relative',
+   },
+   ```
+
+#### Prettier Configuration
+The project uses strict Prettier formatting rules that must be followed:
+
+```javascript
+{
+  arrowParens: 'always',      // Always use parentheses in arrow functions
+  semi: true,                 // Use semicolons at end of statements
+  singleQuote: true,          // Use single quotes instead of double
+  printWidth: 120,            // Line length limit of 120 characters
+  proseWrap: 'preserve',      // Preserve text wrapping
+  tabWidth: 2,                // Use 2 spaces for indentation
+  trailingComma: 'all',       // Trailing commas in arrays and objects
+  useTabs: false,             // Use spaces instead of tabs
+}
+```
+
+**Key formatting rules:**
+- **Single quotes:** Always use `'` instead of `"`
+- **Semicolons:** Required at end of statements
+- **Line length:** Maximum 120 characters
+- **Trailing commas:** Required in arrays, objects, function parameters
+- **Arrow functions:** Always use parentheses `(param) => {}` not `param => {}`
+- **Indentation:** 2 spaces, no tabs
+
+#### ESLint Import Rules
+The project enforces strict import ordering with `import/order` rule:
+
+```javascript
+// ✅ CORRECT - Required import order:
+import PropTypes from 'prop-types';              // 1. External libraries (alphabetical)
+import React, { useState } from 'react';         // 2. React (separate line)
+import { Image as BaseImage, Platform } from 'react-native';  // 3. React Native
+import StyleSheet from 'react-native-extended-stylesheet';   // 4. Other externals
+
+import { Activity, View } from '../../primitives';  // 5. Internal imports (alphabetical)
+import { style } from './Component.style';           // 6. Local files
+
+// ❌ WRONG - Mixed order, missing newlines:
+import { Activity } from '../../primitives';
+import React from 'react';
+import { style } from './Component.style';
+```
+
+**Import grouping rules:**
+1. **External libraries** (alphabetical) - npm packages
+2. **React imports** (separate line)
+3. **React Native imports** (separate line)  
+4. **Other external libraries** (alphabetical)
+5. **Newline separator**
+6. **Internal imports** (alphabetical) - relative paths `../` or `./`
+7. **Local files** (alphabetical) - same directory
+
+**Example of correct formatting:**
+```javascript
+const Component = ({ prop1, prop2, ...others }) => {
+  return (
+    <View style={[style.container, others.style]}>
+      <Activity size="small" color={StyleSheet.value('$colorContent')} />
+    </View>
+  );
+};
+```
+
 ### Utility Modules
 
 #### getColor.js Pattern
@@ -177,6 +296,74 @@ Resolves font sizes based on boolean props:
 export const getFontSize = ({ title, subtitle, caption, tiny }) =>
   title ? style.title : subtitle ? style.subtitle : caption ? style.caption : tiny ? style.tiny : style.body;
 ```
+
+### State Management Patterns
+
+The design system follows consistent state management patterns:
+
+#### Preferred State Pattern: [busy, setBusy]
+Use `[busy, setBusy]` pattern for loading states instead of `[isLoading, setIsLoading]`:
+
+```javascript
+// ✅ PREFERRED
+const [busy, setBusy] = useState(true);
+
+const handleLoadStart = () => {
+  setBusy(true);
+};
+
+const handleLoad = () => {
+  setBusy(false);
+};
+
+// Usage
+{busy && <Activity size="small" />}
+```
+
+#### Boolean State Management
+Use descriptive boolean states for component variants:
+
+```javascript
+// ✅ GOOD - Clear, descriptive states
+const [disabled, setDisabled] = useState(false);
+const [visible, setVisible] = useState(true);
+const [expanded, setExpanded] = useState(false);
+
+// ❌ AVOID - Generic or unclear states
+const [isLoading, setIsLoading] = useState(false);
+const [state, setState] = useState('idle');
+```
+
+#### Event Handler Patterns
+Use consistent naming for event handlers:
+
+```javascript
+// ✅ PREFERRED - Simple, direct names
+const handleLoad = () => {};
+const handleError = () => {};
+const handlePress = () => {};
+
+// ❌ AVOID - Verbose names
+const handleOnLoad = () => {};
+const handleImageError = () => {};
+const handleButtonPress = () => {};
+```
+
+#### Component Classification Rules
+**Primitives:** Single React Native component wrappers
+- Wrap one React Native component (Text, View, Image, etc.)
+- Add theme integration and consistent props
+- No composition of other primitives
+
+**Components:** Compositions of primitives
+- Combine multiple primitives (View + Activity + BaseImage)
+- Add complex logic and state management
+- Provide higher-level functionality
+
+**Systems:** High-level behavioral components
+- Handle complex user interactions
+- Manage application-level state
+- Orchestrate multiple components
 
 ## Dependencies
 
@@ -258,6 +445,7 @@ The library requires these peer dependencies in the consuming app:
 <Text color="error" align="center">Error Text</Text>
 ```
 
+
 ### Best Practices
 
 1. **Always use theme variables** instead of hardcoded values
@@ -277,3 +465,28 @@ The library requires these peer dependencies in the consuming app:
 5. **Not using semantic props** - Reduces maintainability
 
 This design system is optimized for consistency, accessibility, and developer experience. Follow these guidelines to build cohesive React Native applications.
+
+## Maintenance Rule for AI Assistants
+
+**CRITICAL:** This CLAUDE.md file serves as the single source of truth for the project. With every substantial code change, you MUST update this file to reflect:
+
+1. **New Components:** Add to the appropriate tier (primitives/components/systems) with file paths
+2. **Theme Changes:** Update theme variables, colors, typography, or spacing
+3. **Architectural Changes:** Modify component patterns, file structures, or dependencies
+4. **API Changes:** Update prop patterns, usage examples, or component interfaces
+5. **Build/Command Changes:** Modify development commands or build processes
+
+**When to Update:**
+- Adding/removing/modifying components
+- Changing theme variables or structure
+- Updating dependencies or peer dependencies
+- Modifying build scripts or development workflow
+- Adding new architectural patterns or conventions
+
+**How to Update:**
+- Edit the relevant sections in this file
+- Keep examples current with actual implementation
+- Update version numbers and component lists
+- Ensure all file paths and command references are accurate
+
+This ensures project continuity and context preservation across development sessions.
