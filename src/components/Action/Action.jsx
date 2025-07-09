@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
 import StyleSheet from 'react-native-extended-stylesheet';
 
 import { style } from './Action.style';
-import { Pressable, Text } from '../../primitives';
+import { Activity, Pressable, Text } from '../../primitives';
 
 const Action = ({ activity = false, children, color = 'accent', disabled, onPress = () => {}, ...others }) => {
   return (
@@ -14,10 +13,7 @@ const Action = ({ activity = false, children, color = 'accent', disabled, onPres
           {children}
         </Text>
       ) : (
-        <ActivityIndicator
-          size="small"
-          color={StyleSheet.value(color == 'accent' ? '$colorAccent' : '$colorContent')}
-        />
+        <Activity size="small" color={StyleSheet.value(color == 'accent' ? '$colorAccent' : '$colorContent')} />
       )}
     </Pressable>
   );

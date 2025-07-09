@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
 import StyleSheet from 'react-native-extended-stylesheet';
 
 import { style } from './Setting.style';
 import { Card, Tabs } from '../../components';
-import { Icon, Pressable, Text, View } from '../../primitives';
+import { Activity, Icon, Pressable, Text, View } from '../../primitives';
 
 const Setting = ({
   activity = false,
@@ -44,7 +43,7 @@ const Setting = ({
         </View>
 
         {activity ? (
-          <ActivityIndicator size="small" color={StyleSheet.value('$colorContent')} />
+          <Activity size="small" color={StyleSheet.value('$colorContent')} />
         ) : options ? (
           <Tabs {...{ selected, options, onChange }} />
         ) : onPress ? (

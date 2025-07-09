@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
 import StyleSheet from 'react-native-extended-stylesheet';
 
 import { style } from './Button.style';
-import { Icon, Pressable, Text } from '../../primitives';
+import { Activity, Icon, Pressable, Text } from '../../primitives';
 
 const Button = ({
   activity = false,
@@ -53,10 +52,7 @@ const Button = ({
           )}
         </>
       ) : (
-        <ActivityIndicator
-          size="small"
-          color={StyleSheet.value(secondary || outlined ? '$colorContent' : '$colorBase')}
-        />
+        <Activity size="small" color={StyleSheet.value(secondary || outlined ? '$colorContent' : '$colorBase')} />
       )}
     </Pressable>
   );
