@@ -17,4 +17,12 @@ export const style = StyleSheet.create({
   small: {
     padding: '$spaceS',
   },
+
+  backgroundImage: {
+    borderRadius: '$borderRadius',
+  },
+
+  content: {
+    backgroundColor: 'transparent',
+  },
 });

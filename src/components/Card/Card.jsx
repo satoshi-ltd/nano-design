@@ -1,23 +1,39 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { ImageBackground } from 'react-native';
 
 import { style } from './Card.style';
 import { getColor } from './modules';
 import { Pressable, View } from '../../primitives';
 
-const Card = ({ color, small, outlined = false, ...others }) =>
-  React.createElement(others.onPress ? Pressable : View, {
-    ...others,
-    style: [style.card, small && style.small, outlined ? style.outlined : getColor(color), others.style],
-  });
+const Card = ({ color, image, outlined = false, small, ...others }) => {
+  const Component = others.onPress ? Pressable : View;
+
+  return image ? (
+    <ImageBackground
+      source={image}
+      style={[style.card, small && style.small, others.style]}
+      imageStyle={style.backgroundImage}
+    >
+      <Component {...others} style={style.content}>
+        {others.children}
+      </Component>
+    </ImageBackground>
+  ) : (
+    React.createElement(Component, {
+      ...others,
+      style: [style.card, small && style.small, outlined ? style.outlined : getColor(color), others.style],
+    })
+  );
+};
 
 Card.displayName = 'Card';
 
 Card.propTypes = {
   color: PropTypes.string,
-  small: PropTypes.bool,
+  image: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   outlined: PropTypes.bool,
-  onPress: PropTypes.func,
+  small: PropTypes.bool,
 };
 
 export { Card };

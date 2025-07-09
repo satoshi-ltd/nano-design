@@ -6,7 +6,7 @@ This file provides comprehensive guidance for AI assistants when working with th
 
 `@satoshi-ltd/nano-design` is a lightweight, flexible React Native design system library built with Expo. It provides a comprehensive set of reusable UI components and primitives for building consistent, accessible mobile applications.
 
-**Version:** 0.2.82
+**Version:** 0.2.83
 **Package:** `@satoshi-ltd/nano-design`
 **Repository:** https://github.com/satoshi-ltd/nano-design
 **License:** MIT
@@ -46,7 +46,7 @@ The library follows a strict three-tier component architecture:
 **Components:**
 - `Action` - Action buttons (`src/components/Action/`)
 - `Button` - Primary button with variants (primary, secondary, outlined) (`src/components/Button/`)
-- `Card` - Content card with color utilities (`src/components/Card/`)
+- `Card` - Content card with color utilities and background image support (`src/components/Card/`)
 - `Image` - Image component with loading indicator (`src/components/Image/`)
 - `Modal` - Modal dialog (`src/components/Modal/`)
 - `Notification` - Toast/notification component (`src/components/Notification/`)
