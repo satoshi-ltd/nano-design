@@ -1,6 +1,7 @@
 export * from './Action';
 export * from './Button';
 export * from './Card';
+export * from './Image';
 export * from './Modal';
 export * from './Notification';
 export * from './Pagination';
