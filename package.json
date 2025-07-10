@@ -28,6 +28,7 @@
     "@react-navigation/native": "*",
     "expo-blur": "*",
     "expo-haptics": "*",
+    "expo-sensors": "*",
     "prop-types": "*",
     "react": "*",
     "react-native": "*",

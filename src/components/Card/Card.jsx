@@ -5,34 +5,38 @@ import { ImageBackground } from 'react-native';
 
 import { style } from './Card.style';
 import { getColor } from './modules';
+import { hexToRgba, useGyroscope } from './utils';
 import { Pressable, View } from '../../primitives';
 
 const Card = ({
   blur = false,
-  blurColor = '#ffffff',
-  blurIntensity = 66,
-  blurOpacity = 0.33,
+  blurIntensity = 50,
+  blurOpacity = 0.1,
   blurTint = 'light',
   color,
+  glassMode = true,
   image,
   outlined = false,
   small,
   ...others
 }) => {
   const Component = others.onPress ? Pressable : View;
-
-  const getOverlayColor = () => {
-    const hexColor = blurColor.startsWith('#') ? blurColor : `#${blurColor}`;
-    const r = parseInt(hexColor.substr(1, 2), 16);
-    const g = parseInt(hexColor.substr(3, 2), 16);
-    const b = parseInt(hexColor.substr(5, 2), 16);
-    return `rgba(${r}, ${g}, ${b}, ${blurOpacity})`;
-  };
+  const { getGlassLighting } = useGyroscope(glassMode && blur);
 
   return blur ? (
     <BlurView intensity={blurIntensity} tint={blurTint} style={[style.card, small && style.small, others.style]}>
-      <View style={[style.overlay, { backgroundColor: getOverlayColor() }]} />
-      <View style={style.glassHighlight} />
+      {color && <View style={[style.overlay, { backgroundColor: hexToRgba(color, blurOpacity) }]} />}
+      {glassMode && (
+        <View
+          style={[
+            style.glassEffect,
+            {
+              borderWidth: 1,
+              ...getGlassLighting(),
+            },
+          ]}
+        />
+      )}
       <Component {...others} style={style.content}>
         {others.children}
       </Component>
@@ -59,11 +63,11 @@ Card.displayName = 'Card';
 
 Card.propTypes = {
   blur: PropTypes.bool,
-  blurColor: PropTypes.string,
   blurIntensity: PropTypes.number,
   blurOpacity: PropTypes.number,
   blurTint: PropTypes.oneOf(['light', 'dark', 'default']),
   color: PropTypes.string,
+  glassMode: PropTypes.bool,
   image: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   outlined: PropTypes.bool,
   small: PropTypes.bool,
