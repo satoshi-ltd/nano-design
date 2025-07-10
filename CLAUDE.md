@@ -2,11 +2,17 @@
 
 This file provides comprehensive guidance for AI assistants when working with the `@satoshi-ltd/nano-design` React Native design system library.
 
+## Code Style Guidelines
+
+**⚠️ CRITICAL:** Follow `CODE_GUIDELINES.md` exactly. ESLint will **block commits** if violated.
+
+**Key Rules:** Import order (alphabetical + newlines) | Props order (Typical → Events → Style) | CSS alphabetical | Single quotes | Trailing commas
+
 ## Project Overview
 
 `@satoshi-ltd/nano-design` is a lightweight, flexible React Native design system library built with Expo. It provides a comprehensive set of reusable UI components and primitives for building consistent, accessible mobile applications.
 
-**Version:** 0.2.85
+**Version:** 0.2.87
 **Package:** `@satoshi-ltd/nano-design`
 **Repository:** https://github.com/satoshi-ltd/nano-design
 **License:** MIT
@@ -170,118 +176,6 @@ Components use boolean props for variants:
 - `title`, `subtitle`, `caption`, `tiny` for text sizes
 - `small`, `large` for size variants
 
-#### Component Props Organization
-Props must be organized in this specific order:
-
-1. **Component destructuring:**
-   ```javascript
-   const Component = ({ 
-     // 1. Typical properties (alphabetical)
-     activityColor, 
-     activitySize = 'small', 
-     resizeMode = 'cover', 
-     source, 
-     // 2. Others (contains events and style)
-     ...others 
-   }) => {
-   ```
-
-2. **JSX props ordering:**
-   ```javascript
-   <BaseComponent
-     {...others}              // 1. Spread others first
-     resizeMode={resizeMode}  // 2. Typical properties (alphabetical)
-     source={source}
-     onError={handleError}    // 3. Events (alphabetical)
-     onLoad={handleLoad}
-     onLoadStart={handleLoadStart}
-     style={style.component}  // 4. Style last
-   />
-   ```
-
-3. **PropTypes ordering:**
-   ```javascript
-   Component.propTypes = {
-     // Typical properties only (alphabetical)
-     activityColor: PropTypes.string,
-     activitySize: PropTypes.oneOf(['small', 'large']),
-     resizeMode: PropTypes.oneOf(['cover', 'contain']),
-     source: PropTypes.object.isRequired,
-   };
-   ```
-
-4. **CSS properties ordering:**
-   All CSS properties within each style object must be alphabetical:
-   ```javascript
-   container: {
-     backgroundColor: '$colorBorder',
-     position: 'relative',
-   },
-   ```
-
-#### Prettier Configuration
-The project uses strict Prettier formatting rules that must be followed:
-
-```javascript
-{
-  arrowParens: 'always',      // Always use parentheses in arrow functions
-  semi: true,                 // Use semicolons at end of statements
-  singleQuote: true,          // Use single quotes instead of double
-  printWidth: 120,            // Line length limit of 120 characters
-  proseWrap: 'preserve',      // Preserve text wrapping
-  tabWidth: 2,                // Use 2 spaces for indentation
-  trailingComma: 'all',       // Trailing commas in arrays and objects
-  useTabs: false,             // Use spaces instead of tabs
-}
-```
-
-**Key formatting rules:**
-- **Single quotes:** Always use `'` instead of `"`
-- **Semicolons:** Required at end of statements
-- **Line length:** Maximum 120 characters
-- **Trailing commas:** Required in arrays, objects, function parameters
-- **Arrow functions:** Always use parentheses `(param) => {}` not `param => {}`
-- **Indentation:** 2 spaces, no tabs
-
-#### ESLint Import Rules
-The project enforces strict import ordering with `import/order` rule:
-
-```javascript
-// ✅ CORRECT - Required import order:
-import PropTypes from 'prop-types';              // 1. External libraries (alphabetical)
-import React, { useState } from 'react';         // 2. React (separate line)
-import { Image as BaseImage, Platform } from 'react-native';  // 3. React Native
-import StyleSheet from 'react-native-extended-stylesheet';   // 4. Other externals
-
-import { Activity, View } from '../../primitives';  // 5. Internal imports (alphabetical)
-import { style } from './Component.style';           // 6. Local files
-
-// ❌ WRONG - Mixed order, missing newlines:
-import { Activity } from '../../primitives';
-import React from 'react';
-import { style } from './Component.style';
-```
-
-**Import grouping rules:**
-1. **External libraries** (alphabetical) - npm packages
-2. **React imports** (separate line)
-3. **React Native imports** (separate line)  
-4. **Other external libraries** (alphabetical)
-5. **Newline separator**
-6. **Internal imports** (alphabetical) - relative paths `../` or `./`
-7. **Local files** (alphabetical) - same directory
-
-**Example of correct formatting:**
-```javascript
-const Component = ({ prop1, prop2, ...others }) => {
-  return (
-    <View style={[style.container, others.style]}>
-      <Activity size="small" color={StyleSheet.value('$colorContent')} />
-    </View>
-  );
-};
-```
-
 ### Utility Modules
 
 #### getColor.js Pattern
@@ -297,81 +191,36 @@ export const getFontSize = ({ title, subtitle, caption, tiny }) =>
   title ? style.title : subtitle ? style.subtitle : caption ? style.caption : tiny ? style.tiny : style.body;
 ```
 
-### State Management Patterns
+### Design System Utilities
 
-The design system follows consistent state management patterns:
+#### Built-in Utility Functions
+- **`getColor(value)`** - Resolves theme colors or custom hex values
+- **`getFontSize(props)`** - Determines font size from boolean typography props  
+- **`hexToRgba(hex, opacity)`** - Converts hex colors to rgba (used in Card blur effects)
+- **`useGyroscope(enabled)`** - Dynamic glass lighting for Card component
 
-#### Preferred State Pattern: [busy, setBusy]
-Use `[busy, setBusy]` pattern for loading states instead of `[isLoading, setIsLoading]`:
-
+#### Advanced Card Features
 ```javascript
-// ✅ PREFERRED
-const [busy, setBusy] = useState(true);
-
-const handleLoadStart = () => {
-  setBusy(true);
-};
-
-const handleLoad = () => {
-  setBusy(false);
-};
-
-// Usage
-{busy && <Activity size="small" />}
+// Glassmorphism with gyroscope
+<Card blur glassMode>          // Dynamic glass lighting
+<Card blur color="#fff" />     // Blur with color overlay
+<Card image={source} />        // Image background
 ```
 
-#### Boolean State Management
-Use descriptive boolean states for component variants:
+### Architecture Rules
 
-```javascript
-// ✅ GOOD - Clear, descriptive states
-const [disabled, setDisabled] = useState(false);
-const [visible, setVisible] = useState(true);
-const [expanded, setExpanded] = useState(false);
-
-// ❌ AVOID - Generic or unclear states
-const [isLoading, setIsLoading] = useState(false);
-const [state, setState] = useState('idle');
-```
-
-#### Event Handler Patterns
-Use consistent naming for event handlers:
-
-```javascript
-// ✅ PREFERRED - Simple, direct names
-const handleLoad = () => {};
-const handleError = () => {};
-const handlePress = () => {};
-
-// ❌ AVOID - Verbose names
-const handleOnLoad = () => {};
-const handleImageError = () => {};
-const handleButtonPress = () => {};
-```
-
-#### Component Classification Rules
-**Primitives:** Single React Native component wrappers
-- Wrap one React Native component (Text, View, Image, etc.)
-- Add theme integration and consistent props
-- No composition of other primitives
-
-**Components:** Compositions of primitives
-- Combine multiple primitives (View + Activity + BaseImage)
-- Add complex logic and state management
-- Provide higher-level functionality
-
-**Systems:** High-level behavioral components
-- Handle complex user interactions
-- Manage application-level state
-- Orchestrate multiple components
+**Primitives:** Wrap single React Native components (Text, View, Image)
+**Components:** Compose primitives (Card = View + BlurView + Activity)
+**Systems:** Handle complex interactions (Confirm, Menu, Setting)
 
 ## Dependencies
 
 ### Peer Dependencies (Required)
 The library requires these peer dependencies in the consuming app:
 - `@react-navigation/native` - Navigation library
-- `expo-blur` - Blur effects
+- `expo-blur` - Blur effects for Card glassmorphism
 - `expo-haptics` - Haptic feedback
+- `expo-sensors` - Gyroscope support for Card glass effects
 - `prop-types` - Runtime type checking
 - `react` - React library
 - `react-native` - React Native framework
@@ -443,6 +292,46 @@ The library requires these peer dependencies in the consuming app:
 // Colors and styling
 <Text color="accent" bold>Accent Bold Text</Text>
 <Text color="error" align="center">Error Text</Text>
+```
+
+#### Card Examples
+```javascript
+// Basic card
+<Card>
+  <Text>Card content</Text>
+</Card>
+
+// Blur card with glassmorphism
+<Card blur glassMode>
+  <Text>Glass effect card</Text>
+</Card>
+
+// Blur card with color overlay
+<Card blur color="#ffffff" blurOpacity={0.2}>
+  <Text>Card with white overlay</Text>
+</Card>
+
+// Image background card
+<Card image={{ uri: 'https://example.com/image.jpg' }}>
+  <Text>Card with image background</Text>
+</Card>
+```
+
+#### Image Examples
+```javascript
+// Basic image with loading indicator
+<Image 
+  source={{ uri: 'https://example.com/image.jpg' }}
+  style={{ width: 300, height: 200 }}
+/>
+
+// Custom activity indicator
+<Image 
+  source={{ uri: 'https://example.com/image.jpg' }}
+  activityColor="#ff0000"
+  activitySize="large"
+  style={{ width: 300, height: 200 }}
+/>
 ```
 
 
