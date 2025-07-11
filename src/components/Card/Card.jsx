@@ -20,43 +20,40 @@ const Card = ({
   small,
   ...others
 }) => {
-  const Component = others.onPress ? Pressable : View;
   const { getGlassLighting } = useGyroscope(glassMode && blur);
+  const hasPress = !!others.onPress;
 
-  return blur ? (
-    <BlurView intensity={blurIntensity} tint={blurTint} style={[style.card, small && style.small, others.style]}>
-      {color && <View style={[style.overlay, { backgroundColor: hexToRgba(color, blurOpacity) }]} />}
-      {glassMode && (
-        <View
-          style={[
-            style.glassEffect,
-            {
-              borderWidth: 1,
-              ...getGlassLighting(),
-            },
-          ]}
-        />
-      )}
-      <Component {...others} style={style.content}>
+  const renderContent = () => {
+    const cardStyle = [style.card, small && style.small, others.style];
+
+    return blur ? (
+      <BlurView intensity={blurIntensity} tint={blurTint} style={cardStyle}>
+        {color && <View style={[style.overlay, { backgroundColor: hexToRgba(color, blurOpacity) }]} />}
+        {glassMode && (
+          <View
+            style={[
+              style.glassEffect,
+              {
+                borderWidth: 1,
+                ...getGlassLighting(),
+              },
+            ]}
+          />
+        )}
+        <View style={style.content}>{others.children}</View>
+      </BlurView>
+    ) : image ? (
+      <ImageBackground source={image} style={cardStyle} imageStyle={style.backgroundImage}>
+        <View style={style.content}>{others.children}</View>
+      </ImageBackground>
+    ) : (
+      <View style={[...cardStyle.slice(0, -1), outlined ? style.outlined : getColor(color), others.style]}>
         {others.children}
-      </Component>
-    </BlurView>
-  ) : image ? (
-    <ImageBackground
-      source={image}
-      style={[style.card, small && style.small, others.style]}
-      imageStyle={style.backgroundImage}
-    >
-      <Component {...others} style={style.content}>
-        {others.children}
-      </Component>
-    </ImageBackground>
-  ) : (
-    React.createElement(Component, {
-      ...others,
-      style: [style.card, small && style.small, outlined ? style.outlined : getColor(color), others.style],
-    })
-  );
+      </View>
+    );
+  };
+
+  return hasPress ? <Pressable {...others}>{renderContent()}</Pressable> : renderContent();
 };
 
 Card.displayName = 'Card';
