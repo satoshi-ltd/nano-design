@@ -25,7 +25,7 @@ const Card = ({
   const hasPress = !!others.onPress;
 
   const renderContent = () => {
-    const cardStyle = [style.card, small && style.small, others.style];
+    const cardStyle = [style.card, small && style.small, image && style.cardImage, others.style];
     
     // Aplicar shadow estático cuando shadow=true y NO está en glassMode
     const shadowStyles = shadow && !(glassMode && blur) ? Platform.select({

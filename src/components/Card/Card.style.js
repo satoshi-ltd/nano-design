@@ -18,6 +18,10 @@ export const style = StyleSheet.create({
     padding: '$spaceS',
   },
 
+  cardImage: {
+    padding: 0,
+  },
+
   imageContainer: {
     borderRadius: '$borderRadius',
     flex: 1,
