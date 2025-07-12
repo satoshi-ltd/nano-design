@@ -60,9 +60,11 @@ const Card = ({
         <View style={style.content}>{others.children}</View>
       </BlurView>
     ) : image ? (
-      <ImageBackground source={image} style={[cardStyle, shadowStyles]} imageStyle={style.backgroundImage}>
-        <View style={style.content}>{others.children}</View>
-      </ImageBackground>
+      <View style={[cardStyle, shadowStyles]}>
+        <ImageBackground source={image} style={style.imageContainer} imageStyle={style.backgroundImage}>
+          <View style={style.content}>{others.children}</View>
+        </ImageBackground>
+      </View>
     ) : (
       <View style={[...cardStyle.slice(0, -1), outlined ? style.outlined : getColor(color), others.style, shadowStyles]}>
         {others.children}

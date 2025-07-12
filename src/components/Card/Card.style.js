@@ -18,6 +18,12 @@ export const style = StyleSheet.create({
     padding: '$spaceS',
   },
 
+  imageContainer: {
+    borderRadius: '$borderRadius',
+    flex: 1,
+    overflow: 'hidden',
+  },
+
   backgroundImage: {
     borderRadius: '$borderRadius',
   },
