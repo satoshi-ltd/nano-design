@@ -24,8 +24,11 @@ const Card = ({
   const { getGlassLighting } = useGyroscope(glassMode && blur, shadow);
   const hasPress = !!others.onPress;
 
+  // Separar style de otras props de layout
+  const { style: customStyle, children, onPress, ...layoutProps } = others;
+
   const renderContent = () => {
-    const cardStyle = [style.card, small && style.small, image && style.cardImage, others.style];
+    const cardStyle = [style.card, small && style.small, image && style.cardImage, customStyle];
     
     // Aplicar shadow estático cuando shadow=true y NO está en glassMode
     const shadowStyles = shadow && !(glassMode && blur) ? Platform.select({
@@ -57,22 +60,22 @@ const Card = ({
             ]}
           />
         )}
-        <View style={style.content}>{others.children}</View>
+        <View {...layoutProps} style={style.content}>{children}</View>
       </BlurView>
     ) : image ? (
       <View style={[cardStyle, shadowStyles]}>
         <ImageBackground source={image} style={style.imageContainer} imageStyle={style.backgroundImage}>
-          <View style={style.content}>{others.children}</View>
+          <View {...layoutProps} style={style.content}>{children}</View>
         </ImageBackground>
       </View>
     ) : (
-      <View style={[...cardStyle.slice(0, -1), outlined ? style.outlined : getColor(color), others.style, shadowStyles]}>
-        {others.children}
+      <View style={[...cardStyle.slice(0, -1), outlined ? style.outlined : getColor(color), customStyle, shadowStyles]}>
+        <View {...layoutProps}>{children}</View>
       </View>
     );
   };
 
-  return hasPress ? <Pressable {...others}>{renderContent()}</Pressable> : renderContent();
+  return hasPress ? <Pressable onPress={onPress} style={customStyle}>{renderContent()}</Pressable> : renderContent();
 };
 
 Card.displayName = 'Card';
