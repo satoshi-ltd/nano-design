@@ -17,10 +17,11 @@ const Card = ({
   glassMode = true,
   image,
   outlined = false,
+  shadow = false,
   small,
   ...others
 }) => {
-  const { getGlassLighting } = useGyroscope(glassMode && blur);
+  const { getGlassLighting } = useGyroscope(glassMode && blur, shadow);
   const hasPress = !!others.onPress;
 
   const renderContent = () => {
@@ -67,6 +68,7 @@ Card.propTypes = {
   glassMode: PropTypes.bool,
   image: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   outlined: PropTypes.bool,
+  shadow: PropTypes.bool,
   small: PropTypes.bool,
 };
 

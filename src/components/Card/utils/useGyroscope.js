@@ -8,7 +8,7 @@ try {
   console.warn('expo-sensors not available');
 }
 
-export const useGyroscope = (enabled = true) => {
+export const useGyroscope = (enabled = true, shadow = false) => {
   const [gyroscopeData, setGyroscopeData] = useState({ x: 0, y: 0, z: 0 });
   const [mouseData, setMouseData] = useState({ x: 0, y: 0 });
   const [isAvailable, setIsAvailable] = useState(false);
@@ -66,16 +66,32 @@ export const useGyroscope = (enabled = true) => {
   }, [enabled]);
 
   const getGlassLighting = () => {
+    const borderStyles = {
+      borderTopColor: 'rgba(255, 255, 255, 0.3)',
+      borderRightColor: 'transparent',
+      borderBottomColor: 'transparent',
+      borderLeftColor: 'transparent',
+    };
+
+    const staticShadowStyles = shadow ? Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.05,
+        shadowRadius: 2,
+      },
+      android: {
+        elevation: 4,
+      },
+      web: {
+        boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.05)',
+      },
+    }) : {};
+
     if (!isAvailable) {
       return {
-        borderTopColor: 'rgba(255, 255, 255, 0.3)',
-        borderRightColor: 'transparent',
-        borderBottomColor: 'transparent',
-        borderLeftColor: 'transparent',
-        shadowColor: '#000000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
+        ...borderStyles,
+        ...staticShadowStyles,
       };
     }
 
@@ -91,20 +107,38 @@ export const useGyroscope = (enabled = true) => {
     // Intensidad del borde superior según orientación
     const topBorderIntensity = Math.max(0.1, 0.4 + y * 0.3); // Más brillo cuando se inclina hacia la luz
 
-    // Sombra que se mueve según orientación
-    const shadowOffsetX = x * 2;
-    const shadowOffsetY = Math.max(1, 3 + y * 2); // Sombra más pronunciada cuando se inclina hacia abajo
-    const shadowIntensity = Math.max(0.05, 0.15 + Math.abs(y) * 0.1);
-
-    return {
+    const dynamicBorderStyles = {
       borderTopColor: `rgba(255, 255, 255, ${topBorderIntensity})`,
       borderRightColor: 'transparent',
       borderBottomColor: 'transparent',
       borderLeftColor: 'transparent',
-      shadowColor: '#000000',
-      shadowOffset: { width: shadowOffsetX, height: shadowOffsetY },
-      shadowOpacity: shadowIntensity,
-      shadowRadius: 4,
+    };
+
+    // Solo aplicar sombra dinámica si shadow=true
+    const dynamicShadowStyles = shadow ? (() => {
+      const shadowOffsetX = x * 2;
+      const shadowOffsetY = Math.max(1, 3 + y * 2); // Sombra más pronunciada cuando se inclina hacia abajo
+      const shadowIntensity = Math.max(0.02, 0.08 + Math.abs(y) * 0.05);
+
+      return Platform.select({
+        ios: {
+          shadowColor: '#000',
+          shadowOffset: { width: shadowOffsetX, height: shadowOffsetY },
+          shadowOpacity: shadowIntensity,
+          shadowRadius: 2,
+        },
+        android: {
+          elevation: Math.max(2, 4 + Math.abs(y) * 4),
+        },
+        web: {
+          boxShadow: `${shadowOffsetX}px ${shadowOffsetY}px 4px 0 rgba(0, 0, 0, ${shadowIntensity})`,
+        },
+      });
+    })() : {};
+
+    return {
+      ...dynamicBorderStyles,
+      ...dynamicShadowStyles,
     };
   };
 
