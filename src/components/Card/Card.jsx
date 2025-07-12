@@ -1,7 +1,7 @@
 import { BlurView } from 'expo-blur';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ImageBackground } from 'react-native';
+import { ImageBackground, Platform } from 'react-native';
 
 import { style } from './Card.style';
 import { getColor } from './modules';
@@ -26,9 +26,25 @@ const Card = ({
 
   const renderContent = () => {
     const cardStyle = [style.card, small && style.small, others.style];
+    
+    // Aplicar shadow estático cuando shadow=true y NO está en glassMode
+    const shadowStyles = shadow && !(glassMode && blur) ? Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.05,
+        shadowRadius: 2,
+      },
+      android: {
+        elevation: 4,
+      },
+      web: {
+        boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.05)',
+      },
+    }) : {};
 
     return blur ? (
-      <BlurView intensity={blurIntensity} tint={blurTint} style={cardStyle}>
+      <BlurView intensity={blurIntensity} tint={blurTint} style={[cardStyle, shadowStyles]}>
         {color && <View style={[style.overlay, { backgroundColor: hexToRgba(color, blurOpacity) }]} />}
         {glassMode && (
           <View
@@ -44,11 +60,11 @@ const Card = ({
         <View style={style.content}>{others.children}</View>
       </BlurView>
     ) : image ? (
-      <ImageBackground source={image} style={cardStyle} imageStyle={style.backgroundImage}>
+      <ImageBackground source={image} style={[cardStyle, shadowStyles]} imageStyle={style.backgroundImage}>
         <View style={style.content}>{others.children}</View>
       </ImageBackground>
     ) : (
-      <View style={[...cardStyle.slice(0, -1), outlined ? style.outlined : getColor(color), others.style]}>
+      <View style={[...cardStyle.slice(0, -1), outlined ? style.outlined : getColor(color), others.style, shadowStyles]}>
         {others.children}
       </View>
     );

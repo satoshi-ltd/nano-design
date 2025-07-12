@@ -12,7 +12,7 @@ This file provides comprehensive guidance for AI assistants when working with th
 
 `@satoshi-ltd/nano-design` is a lightweight, flexible React Native design system library built with Expo. It provides a comprehensive set of reusable UI components and primitives for building consistent, accessible mobile applications.
 
-**Version:** 0.2.90
+**Version:** 0.2.91
 **Package:** `@satoshi-ltd/nano-design`
 **Repository:** https://github.com/satoshi-ltd/nano-design
 **License:** MIT
