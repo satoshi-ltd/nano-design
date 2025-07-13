@@ -1,7 +1,7 @@
 import { BlurView } from 'expo-blur';
 import PropTypes from 'prop-types';
-import React from 'react';
-import { ImageBackground } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { Animated, ImageBackground } from 'react-native';
 
 import { style } from './Card.style';
 import { getColor } from './modules';
@@ -19,15 +19,55 @@ const Card = ({
   image,
   outlined = false,
   shadow = false,
+  placeholderColor,
   small,
   style: customStyle,
   onPress,
   ...others
 }) => {
   const { getGlassLighting } = useGyroscope(glassMode && blur, shadow);
+  const [imageLoading, setImageLoading] = useState(false);
+  const pulseAnimation = useRef(new Animated.Value(0.5)).current;
 
   const has = { shadow, glassMode: glassMode && blur };
   const dynamicGlassStyles = has.glassMode ? getGlassLighting() : undefined;
+
+  useEffect(() => {
+    if (imageLoading && image) {
+      const animation = Animated.loop(
+        Animated.sequence([
+          Animated.timing(pulseAnimation, {
+            toValue: 0.3,
+            duration: 800,
+            useNativeDriver: true,
+          }),
+          Animated.timing(pulseAnimation, {
+            toValue: 0.7,
+            duration: 800,
+            useNativeDriver: true,
+          }),
+        ])
+      );
+      animation.start();
+      return () => animation.stop();
+    }
+  }, [imageLoading, image, pulseAnimation]);
+
+  const handleImageLoadStart = () => {
+    setImageLoading(true);
+  };
+
+  const handleImageLoad = () => {
+    setImageLoading(false);
+  };
+
+  const handleImageLoadEnd = () => {
+    setImageLoading(false);
+  };
+
+  const handleImageError = () => {
+    setImageLoading(false);
+  };
 
   return (
     <Pressable
@@ -50,7 +90,30 @@ const Card = ({
         customStyle,
       ]}
     >
-      {image && <ImageBackground source={image} style={style.absolute} />}
+      {image && (
+        <ImageBackground 
+          source={image} 
+          style={style.absolute}
+          onLoadStart={handleImageLoadStart}
+          onLoad={handleImageLoad}
+          onLoadEnd={handleImageLoadEnd}
+          onError={handleImageError}
+        />
+      )}
+
+      {/* Pulse loading state for image */}
+      {image && imageLoading && (
+        <Animated.View 
+          style={[
+            style.absolute, 
+            style.placeholder, 
+            { 
+              backgroundColor: placeholderColor || '$colorBorder',
+              opacity: pulseAnimation
+            }
+          ]}
+        />
+      )}
 
       {blur && (
         <BlurView intensity={blurIntensity} tint={blurTint} style={style.absolute}>
@@ -95,6 +158,7 @@ Card.propTypes = {
   image: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   outlined: PropTypes.bool,
   shadow: PropTypes.bool,
+  placeholderColor: PropTypes.string,
   small: PropTypes.bool,
   style: PropTypes.object,
   onPress: PropTypes.func,

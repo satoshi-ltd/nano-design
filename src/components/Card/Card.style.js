@@ -60,4 +60,8 @@ export const style = StyleSheet.create({
   small: {
     padding: '$spaceS',
   },
+
+  placeholder: {
+    backgroundColor: '$colorBorder',
+  },
 });

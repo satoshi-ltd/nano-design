@@ -37,6 +37,8 @@ export default function App() {
         <Card {...cardCommons} blur color="#fff000" blurOpacity={0.33} blurIntensity={33} />
 
         <Card {...cardCommons} image={{ uri: 'https://picsum.photos/300/200' }} />
+        
+        <Card {...cardCommons} image={{ uri: 'https://picsum.photos/400/250' }} placeholderColor="#e0e0e0" />
 
         <Image
           source={{ uri: 'https://picsum.photos/300/200' }}
