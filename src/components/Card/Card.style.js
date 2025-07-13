@@ -1,10 +1,28 @@
+import { Platform } from 'react-native';
 import StyleSheet from 'react-native-extended-stylesheet';
 
 export const style = StyleSheet.create({
   card: {
     borderRadius: '$borderRadius',
-    padding: '$spaceM',
+    overflow: 'hidden',
     width: '100%',
+  },
+
+  shadow: {
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.05,
+        shadowRadius: 2,
+      },
+      android: {
+        elevation: 4,
+      },
+      web: {
+        boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.05)',
+      },
+    }),
   },
 
   outlined: {
@@ -14,30 +32,7 @@ export const style = StyleSheet.create({
     borderWidth: '$borderWidth',
   },
 
-  small: {
-    padding: '$spaceS',
-  },
-
-  cardImage: {
-    padding: 0,
-  },
-
-  imageContainer: {
-    borderRadius: '$borderRadius',
-    flex: 1,
-    overflow: 'hidden',
-  },
-
-  backgroundImage: {
-    borderRadius: '$borderRadius',
-  },
-
-  content: {
-    backgroundColor: 'transparent',
-  },
-
-  overlay: {
-    borderRadius: '$borderRadius',
+  absolute: {
     bottom: 0,
     left: 0,
     position: 'absolute',
@@ -47,10 +42,19 @@ export const style = StyleSheet.create({
 
   glassEffect: {
     borderRadius: '$borderRadius',
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 0,
+    borderWidth: 1,
+    borderTopColor: 'rgba(255, 255, 255, 0.3)',
+    borderRightColor: 'transparent',
+    borderBottomColor: 'transparent',
+    borderLeftColor: 'transparent',
+  },
+
+  content: {
+    padding: '$spaceM',
+    width: '100%',
+  },
+
+  small: {
+    padding: '$spaceS',
   },
 });

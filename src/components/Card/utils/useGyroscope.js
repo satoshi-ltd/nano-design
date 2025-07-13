@@ -73,20 +73,22 @@ export const useGyroscope = (enabled = true, shadow = false) => {
       borderLeftColor: 'transparent',
     };
 
-    const staticShadowStyles = shadow ? Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 2,
-      },
-      android: {
-        elevation: 4,
-      },
-      web: {
-        boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.05)',
-      },
-    }) : {};
+    const staticShadowStyles = shadow
+      ? Platform.select({
+          ios: {
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.05,
+            shadowRadius: 2,
+          },
+          android: {
+            elevation: 4,
+          },
+          web: {
+            boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.05)',
+          },
+        })
+      : {};
 
     if (!isAvailable) {
       return {
@@ -115,26 +117,28 @@ export const useGyroscope = (enabled = true, shadow = false) => {
     };
 
     // Solo aplicar sombra dinámica si shadow=true
-    const dynamicShadowStyles = shadow ? (() => {
-      const shadowOffsetX = x * 2;
-      const shadowOffsetY = Math.max(1, 3 + y * 2); // Sombra más pronunciada cuando se inclina hacia abajo
-      const shadowIntensity = Math.max(0.02, 0.08 + Math.abs(y) * 0.05);
+    const dynamicShadowStyles = shadow
+      ? (() => {
+          const shadowOffsetX = x * 2;
+          const shadowOffsetY = Math.max(1, 3 + y * 2); // Sombra más pronunciada cuando se inclina hacia abajo
+          const shadowIntensity = Math.max(0.02, 0.08 + Math.abs(y) * 0.05);
 
-      return Platform.select({
-        ios: {
-          shadowColor: '#000',
-          shadowOffset: { width: shadowOffsetX, height: shadowOffsetY },
-          shadowOpacity: shadowIntensity,
-          shadowRadius: 2,
-        },
-        android: {
-          elevation: Math.max(2, 4 + Math.abs(y) * 4),
-        },
-        web: {
-          boxShadow: `${shadowOffsetX}px ${shadowOffsetY}px 4px 0 rgba(0, 0, 0, ${shadowIntensity})`,
-        },
-      });
-    })() : {};
+          return Platform.select({
+            ios: {
+              shadowColor: '#000',
+              shadowOffset: { width: shadowOffsetX, height: shadowOffsetY },
+              shadowOpacity: shadowIntensity,
+              shadowRadius: 2,
+            },
+            android: {
+              elevation: Math.max(2, 4 + Math.abs(y) * 4),
+            },
+            web: {
+              boxShadow: `${shadowOffsetX}px ${shadowOffsetY}px 4px 0 rgba(0, 0, 0, ${shadowIntensity})`,
+            },
+          });
+        })()
+      : {};
 
     return {
       ...dynamicBorderStyles,

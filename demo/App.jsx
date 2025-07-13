@@ -6,42 +6,50 @@ import { CommonTheme } from './theme';
 
 StyleSheet.build(CommonTheme);
 
-console.log(Image);
+const cardCommons = {
+  flex: true,
+  onPress: () => {
+    console.log('pressed');
+  },
+  children: (
+    <>
+      <Text>Hello</Text>
+      <Button>test</Button>
+    </>
+  ),
+};
 
 export default function App() {
   return (
-    <View align="center" flex gap offset>
+    <>
       <Image
         source={{ uri: 'https://picsum.photos/300/200' }}
-        style={{ width: 300, height: 200, position: 'absolute', top: 0, left: 0 }}
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
         resizeMode="cover"
       />
-      <Card>
-        <Text>Hello</Text>
-        <Button>test</Button>
-      </Card>
+      <View align="center" flex gap offset>
+        <Card {...cardCommons} />
 
-      <Card blur blurColor="#ff00ff" blurOpacity={0.1} blurIntensity={50}>
-        <Text>Hello</Text>
-        <Button>test</Button>
-      </Card>
+        <Card {...cardCommons} color="accent" />
 
-      <Card image={{ uri: 'https://picsum.photos/300/200' }}>
-        <Text>Hello</Text>
-        <Button>test</Button>
-      </Card>
+        <Card {...cardCommons} blur color="#ff00ff" blurOpacity={0.1} blurIntensity={50} />
 
-      <Image
-        source={{ uri: 'https://picsum.photos/300/200' }}
-        style={{ width: 300, height: 200, borderRadius: 8 }}
-        resizeMode="cover"
-        activityColor="gray"
-        activitySize="large"
-      />
+        <Card {...cardCommons} blur color="#fff000" blurOpacity={0.33} blurIntensity={33} />
 
-      <Button disabled large>
-        Test Component
-      </Button>
-    </View>
+        <Card {...cardCommons} image={{ uri: 'https://picsum.photos/300/200' }} />
+
+        <Image
+          source={{ uri: 'https://picsum.photos/300/200' }}
+          style={{ width: 300, height: 200, borderRadius: 8 }}
+          resizeMode="cover"
+          activityColor="gray"
+          activitySize="large"
+        />
+
+        <Button disabled large>
+          Test Component
+        </Button>
+      </View>
+    </>
   );
 }

@@ -63,6 +63,60 @@ const style = StyleSheet.create({
 
 ## STANDARD PATTERNS
 
+### Component Refactoring Principles
+
+**Target:** Clean, maintainable, minimal code
+```javascript
+// ✅ EXCELLENT - Card refactor example
+const Card = ({
+  blur = false,
+  children,
+  color = 'base',
+  shadow = false,
+  small,
+  style: customStyle,
+  onPress,
+  ...others
+}) => {
+  const { getGlassLighting } = useGyroscope(glassMode && blur, shadow);
+  
+  const has = { shadow, glassMode: glassMode && blur };
+  const dynamicGlassStyles = has.glassMode ? getGlassLighting() : undefined;
+
+  return (
+    <Pressable
+      onPress={onPress}
+      style={[
+        style.card,
+        outlined ? style.outlined : !blur && !image ? getColor(color) : {},
+        has.shadow && !has.glassMode ? style.shadow : dynamicGlassStyles ? extractShadowStyles(dynamicGlassStyles) : {},
+        customStyle,
+      ]}
+    >
+      {image && <ImageBackground source={image} style={style.absolute} />}
+      {blur && (
+        <BlurView intensity={blurIntensity} tint={blurTint} style={style.absolute}>
+          {color && <View style={[style.absolute, { backgroundColor: hexToRgba(color, blurOpacity) }]} />}
+          {glassMode && <View style={[style.absolute, style.glassEffect, extractBorderStyles(dynamicGlassStyles)]} />}
+        </BlurView>
+      )}
+      <View {...others} style={[style.content, small && style.small]}>
+        {children}
+      </View>
+    </Pressable>
+  );
+};
+```
+
+**Key Refactor Techniques:**
+- **Eliminate intermediate variables** when not needed
+- **Create reusable styles** (`style.absolute` for `position: absolute` patterns)
+- **Use object conditions** (`const has = { shadow, glassMode }`)  
+- **Move Platform.select to styles** for better organization
+- **Direct destructuring** in function parameters
+- **Conditional rendering inline** instead of complex functions
+- **Props spreading** (`{...others}`) for layout props to content
+
 ### Component Structure
 ```javascript
 // 1. Imports (order enforced)
