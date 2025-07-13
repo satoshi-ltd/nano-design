@@ -34,7 +34,9 @@ export const style = StyleSheet.create({
 
   absolute: {
     bottom: 0,
+    borderRadius: '$borderRadius',
     left: 0,
+    overflow: 'hidden',
     position: 'absolute',
     right: 0,
     top: 0,
@@ -50,6 +52,7 @@ export const style = StyleSheet.create({
   },
 
   content: {
+    flex: 1,
     padding: '$spaceM',
     width: '100%',
   },
