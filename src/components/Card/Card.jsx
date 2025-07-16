@@ -46,7 +46,7 @@ const Card = ({
             duration: 800,
             useNativeDriver: true,
           }),
-        ])
+        ]),
       );
       animation.start();
       return () => animation.stop();
@@ -69,9 +69,11 @@ const Card = ({
     setImageLoading(false);
   };
 
+  const Wrapper = onPress ? Pressable : View;
+
   return (
-    <Pressable
-      onPress={onPress}
+    <Wrapper
+      {...(onPress ? { onPress } : {})}
       style={[
         style.card,
         outlined ? style.outlined : !blur && !image ? getColor(color) : {},
@@ -91,8 +93,8 @@ const Card = ({
       ]}
     >
       {image && (
-        <ImageBackground 
-          source={image} 
+        <ImageBackground
+          source={image}
           style={style.absolute}
           onLoadStart={handleImageLoadStart}
           onLoad={handleImageLoad}
@@ -103,14 +105,14 @@ const Card = ({
 
       {/* Pulse loading state for image */}
       {image && imageLoading && (
-        <Animated.View 
+        <Animated.View
           style={[
-            style.absolute, 
-            style.placeholder, 
-            { 
+            style.absolute,
+            style.placeholder,
+            {
               backgroundColor: placeholderColor || '$colorBorder',
-              opacity: pulseAnimation
-            }
+              opacity: pulseAnimation,
+            },
           ]}
         />
       )}
@@ -141,7 +143,7 @@ const Card = ({
       <View {...others} style={[style.content, small && style.small]}>
         {children}
       </View>
-    </Pressable>
+    </Wrapper>
   );
 };
 

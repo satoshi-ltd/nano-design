@@ -1,4 +1,5 @@
 # 🤖 CLAUDE AI: START HERE
+<!-- v0.2.100 -->
 
 **New session without context? Follow this reading order:**
 
@@ -36,7 +37,7 @@
 ```markdown
 ## ✅ Validation (MINIMAL)
 - [x] Lint: `npm run lint` ✅
-- [x] Style: CODE_GUIDELINES.md compliance ✅
+- [x] Style: context/code-patterns.md compliance ✅
 ```
 
 #### 🟡 STANDARD:
@@ -114,7 +115,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 ## Code Style Guidelines
 
-**⚠️ CRITICAL:** Follow `CODE_GUIDELINES.md` exactly. ESLint will **block commits** if violated.
+**⚠️ CRITICAL:** Follow `context/code-patterns.md` exactly. ESLint will **block commits** if violated.
 
 **Key Rules:** 
 - Import order (external → @-scoped → relative, alphabetical + newlines)

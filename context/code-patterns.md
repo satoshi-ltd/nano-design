@@ -1,65 +1,65 @@
 # 💻 CODE_PATTERNS: Implementation Guidelines
 
-## CRITICAL_RULES
+**Strict coding standards enforced by ESLint + Prettier. Violations cause build failures.**
 
-### IMPORT_ORDER_ENFORCEMENT
+## CRITICAL_RULES (Build Failures)
+
+### Import Order - `import/order` ESLint Rule
 ```javascript
-// External packages (alphabetical)
+// External (alphabetical)
 import { BlurView } from 'expo-blur';
 import PropTypes from 'prop-types';
-import React from 'react';
-import { ImageBackground, Platform } from 'react-native';
+import React, { useState } from 'react';
+import { Platform } from 'react-native';
 
-// @-scoped packages (alphabetical)
-import { SomeComponent } from '@company/package';
+// @-scoped internal (alphabetical)
+import { Button } from '@company/package';
 
 // Relative imports (alphabetical)
-import { Pressable, View } from '../../primitives';
+import { Activity, View } from '../../primitives';
 import { style } from './Component.style';
-import { getColor } from './modules';
-import { hexToRgba, useGyroscope } from './utils';
 ```
+**Rules:** External → @-scoped → Relative | Alphabetical within groups | Newlines between groups
 
-### PROPS_ORDER_PATTERN
+### Props Order - Component Pattern
 ```javascript
 const Component = ({
-  // 1. Component-specific props (alphabetical)
-  blur = false,
-  children,
-  color = 'base',
-  disabled = false,
-  // 2. Event handlers (alphabetical)
-  onPress,
-  onSubmit,
-  // 3. Style and others last
-  style: customStyle,
+  // 1. Typical props (alphabetical)
+  disabled, large, primary,
+  // 2. Event handlers (alphabetical)  
+  onPress, onSubmit,
+  // 3. Others last
   ...others
 }) => {
   return (
     <Element
-      {...others}           // 1. Others first (layout props)
-      disabled={disabled}   // 2. Component props (A-Z)
+      {...others}           // 1. Others first
+      disabled={disabled}   // 2. Typical (A-Z)
       onPress={onPress}     // 3. Events (A-Z)
-      style={[style.element, customStyle]} // 4. Style always last
+      style={style.element} // 4. Style last
     />
   );
 };
 ```
 
-### CSS_PROPERTIES_ALPHABETICAL
+### CSS Properties - Alphabetical Always
 ```javascript
 const style = StyleSheet.create({
   container: {
-    backgroundColor: '$colorBase',      // A
-    borderRadius: '$borderRadius',      // B
-    borderWidth: '$borderWidth',        // B
-    overflow: 'hidden',                 // O
-    padding: '$spaceM',                 // P
-    position: 'absolute',               // P
-    width: '100%',                      // W
+    backgroundColor: '$colorBase',  // A
+    borderRadius: '$borderRadius',  // B
+    padding: '$spaceM',             // P
+    position: 'absolute',           // P
   },
 });
 ```
+
+### Prettier Rules - Auto-enforced
+- **Single quotes:** `'text'` never `"text"`
+- **Arrow parens:** `(param) => {}` never `param => {}`
+- **Trailing commas:** Required everywhere `{ prop, }`
+- **Semicolons:** Required `;`
+- **120 char limit:** Auto-wrapped
 
 ## COMPONENT_PATTERNS
 
@@ -436,5 +436,34 @@ import { B } from 'module';           // ❌
 // - 120 character limit: auto-wrapped
 ```
 
+## ESLINT_CONFIGURATION
+```javascript
+{
+  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:prettier/recommended"],
+  "rules": {
+    "import/order": ["error", { /* alphabetical + newlines */ }],
+    "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/rules-of-hooks": "warn",
+    "react/display-name": "off"
+  }
+}
+```
+
+## PRETTIER_CONFIGURATION
+```javascript
+{
+  arrowParens: 'always',
+  semi: true,
+  singleQuote: true,
+  printWidth: 120,
+  trailingComma: 'all',
+  useTabs: false,
+}
+```
+
 ## NEXT_STEP
 All context files complete - you now understand the full Nano Design system!
+
+---
+
+**⚠️ ENFORCEMENT:** ESLint will ERROR and block commits if these rules are violated. Prettier auto-fixes formatting. Follow these patterns exactly.
